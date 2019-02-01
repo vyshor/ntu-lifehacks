@@ -20,7 +20,7 @@
 
                     <v-spacer></v-spacer>
 
-                    <v-btn flat class="success mx-0 mt-3" @click="submit" :loading="loading">Add Project</v-btn>
+                    <v-btn flatv-btn flat class="success mx-0 mt-3" @click="submit" :loading="loading">Add Project</v-btn>
                 </v-form>
             </v-card-text>
         </v-card>
