@@ -1,43 +1,58 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Dashboard from './views/Dashboard'
-import Projects from './views/Projects'
-import Team from './views/Team'
+import Test from './views/Test'
 
 Vue.use(Router);
 
 export default new Router({
-    mode: 'history',
-    base: process.env.BASE_URL,
-    routes: [
-        // {
-        //     path: '/',
-        //     name: 'dashboard',
-        //     component: Dashboard
-        // },
-        {
-            path: '/projects',
-            name: 'projects',
-            component: Projects
-            // route level code-splitting
-            // this generates a separate chunk (about.[hash].js) for this route
-            // which is lazy-loaded when the route is visited.
-            // component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
-        },
-        {
-            path: '/signup',
-            name: 'SignUp',
-            component: () => import(/* webpackChunkName: "about" */ './views/pre_login/Signup.vue')
-        },
-        {
-            path: '/',
-            name: 'Login',
-            component: () => import(/* webpackChunkName: "about" */ './views/pre_login/Login.vue')
-        },
-        {
-            path: '/team',
-            name: 'team',
-            component: Team
-        }
-    ]
+  mode: 'history',
+  base: process.env.BASE_URL,
+  routes: [
+    {
+      path: '/',
+      name: 'Test',
+      component: Test
+    },
+    // {
+    //   path: '/projects',
+    //   name: 'projects',
+    //   component: Projects
+    //   // component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+    // },
+    // {
+    //   path: '/team',
+    //   name: 'team',
+    //   component: Team
+    // },
+    {
+      path: '/examseat',
+      name: 'examseat',
+      component: () => import('./views/Studies_related/ExamSeating.vue')
+    },
+    {
+      path: '/booking',
+      name: 'booking',
+      component: () => import('./views/Studies_related/Booking.vue')
+    },
+    {
+      path: '/stars',
+      name: 'stars',
+      component: () => import('./views/Studies_related/STARS.vue')
+    },
+    {
+      path: '/timetable',
+      name: 'timetable',
+      component: () => import('./views/Studies_related/Timetable.vue')
+    },
+    {
+      path: '/modinfo',
+      name: 'modinfo',
+      component: () => import('./views/Studies_related/ModuleInformation.vue')
+    },
+    {
+      path: '/examtime',
+      name: 'examtime',
+      component: () => import('./views/Studies_related/ExamTiming.vue')
+    }
+  ]
 })
