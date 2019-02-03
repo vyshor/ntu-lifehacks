@@ -25,12 +25,16 @@
                     <!--<gmap-marker v-for="(item, key) in coordinates" :key="key" :position="getPosition(item)"-->
                     <!--:clickable="true"-->
                     <!--@click="toggleInfo(item, key)"/>-->
+
+
+                    </gmap-custom-marker>
                     <gmap-custom-marker v-for="(item, key) in canteen_info" :key="key"
                                         :marker="getCanteenPosition(item)"
                                         :clickable="true"
                                         @click.native="toggleInfo(item, key)"
                     >
-                        <img :src="markercolour.red"/>
+                        <img :src="markercolour.yellow" v-if="popular_locations.includes(item.canteenName)"/>
+                        <img :src="markercolour.red" v-else/>
                     </gmap-custom-marker>
 
                 </gmap-map>
@@ -77,7 +81,7 @@
                 operating_hours: null,
                 mapOptions: {
                     disableDefaultUI: true,
-                    clickableIcons:false
+                    clickableIcons: false
                 },
                 markercolour: {
                     red: red_marker,
@@ -85,7 +89,8 @@
                     blue: blue_marker,
                     yellow: yellow_marker
                 },
-                canteen_info: {}
+                canteen_info: {},
+                popular_locations: ['Canteen 2', 'South Spine Canteen', 'North Spine Canteen']
             }
         },
         mounted() {

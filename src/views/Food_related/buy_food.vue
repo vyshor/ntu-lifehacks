@@ -406,10 +406,20 @@
                 for (let [idx, order] of Object.entries(this.cart)) {
                     order.status = 'paid';
                     order.uid = order_id + '_' + idx;
-                    date = new Date();
+                    order.payer = this.user_id;
+                    let date = new Date();
                     order.time = date.getTime();
-                    // need to filter and send to respective vendor here
                     all_orders[order.uid] = order;
+
+                    // need to filter and send to respective vendor here
+                    let vendor_id = '';
+                    db.collection("vendors").doc(order.location + '_' + order.store).get().then(function(res) {
+                        console.log(res);
+                        console.log(res.data());
+                        vendor_id = res.data().uid;
+                        const vendor_docRef = db.collection('users').doc('' + vendor_id).collection('orders').doc();
+                        vendor_docRef.set(order).then(); // promise if successful
+                    })
                 }
 
                 docRef.set(
