@@ -1,18 +1,20 @@
 <template>
   <v-app class="grey lighten-4">
     <Navbar></Navbar>
-    <v-content class="mx-4 mb-4">
+    <v-content class="ma-0">
       <router-view></router-view>
     </v-content>
+    <Botbar></Botbar>
   </v-app>
 </template>
 
 <script>
 import Navbar from "@/components/Navbar";
+import Botbar from "@/components/BotBar";
 
 export default {
   name: "App",
-  components: { Navbar },
+  components: { Navbar, Botbar },
   data() {
     return {
       //

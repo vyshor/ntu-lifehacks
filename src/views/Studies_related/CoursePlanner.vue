@@ -1,12 +1,16 @@
 <template>
   <div class="resp-container">
-    <iframe class="resp-iframe" src="https://plan.kenrick95.org/" frameborder="0"></iframe>
+    <iframe id="plannerframe" class="resp-iframe" src="https://plan.kenrick95.org/" frameborder="0"></iframe>
   </div>
 </template>
 
 <script>
 export default {
-  name: "courseplanner"
+  name: "courseplanner",
+  mounted () {
+
+  }
+
 };
 </script>
 

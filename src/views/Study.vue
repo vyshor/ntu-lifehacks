@@ -25,7 +25,7 @@
                     <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src" contain class="pa-0"></v-carousel-item>
                 </v-carousel>
 
-            <h4 class="my-2">Random Information On Crowd</h4>
+            <h4 class="my-2">Less than 10 people are detected. <br>Place is empty. You will be able to find a seat.</h4>
         </v-layout>
     </div>
 </template>

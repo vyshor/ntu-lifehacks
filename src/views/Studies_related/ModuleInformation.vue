@@ -13,11 +13,11 @@
               ></v-text-field>
             </v-flex>
           </v-layout>
-          
-    <div class="resp-container">
-      <h1>Module Information</h1>
-      <iframe class="resp-iframe" :src="courseDescriptionURL" frameborder="0"></iframe>
-    </div>
+
+          <v-layout class="resp-container">
+            <h1>Module Information</h1>
+            <iframe class="resp-iframe" :src="courseDescriptionURL" frameborder="0"></iframe>
+          </v-layout>
         </v-container>
       </v-form>
     </v-app>

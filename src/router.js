@@ -73,6 +73,11 @@ export default new Router({
       path: '/order',
       name: 'buy_food',
       component: () => import('./views/Food_related/buy_food.vue')
+    },
+    {
+      path: '/bus',
+      name: 'bus',
+      component: () => import('./views/Travel/Bus.vue')
     }
   ]
 })
