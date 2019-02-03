@@ -20,11 +20,7 @@
 
             <v-stepper-items>
                 <v-stepper-content step="1" class="mx-0 px-0">
-                    <v-card
-                            class="mb-5"
-                            color="grey lighten-1"
-                            height="auto"
-                    >
+                    <v-card class="mb-5" color="grey lighten-1" height="auto">
                         <v-expansion-panel>
                             <v-expansion-panel-content v-for="canteen in canteen_info" :key="canteen.canteenName">
                                 <div slot="header">{{ canteen.canteenName }}</div>
@@ -38,65 +34,61 @@
                                                 item-value="storeName"
                                                 @change="updateSelectedStore($event, canteen.canteenName)"
                                         ></v-select>
-
                                     </v-flex>
                                     <v-flex xs12 sm12 d-flex>
-                                                    <v-data-table v-for="storee in canteen"
+                                        <v-data-table v-for="storee in canteen"
                                                                   :headers="headers"
                                                                   :items="conversionToArray(storee)"
                                                                   class="elevation-1"
                                                                   v-if="selected_store[canteen.canteenName] === storee.storeName"
                                                                   :rows-per-page-items="[4,8]"
-                                                                  style="height: 5%; width: 70%;"
-                                                    >
-                                                        <template slot="items" slot-scope="props">
-                                                <td style="margin: 0; padding: 0;" class="mx-1 px-1">{{ props.item.name
-                                                    }}
-                                                </td>
-                                                <td style="margin: 0; padding: 0; width: 7%;" class="mx-0 px-0">
-                                                    <v-layout>
-                                                        <v-flex xs2>
-                                                            <v-text-field
-                                                                    type="number"
-                                                                    value="1"
-                                                                    min="1"
-                                                                    step="1"
-                                                                    v-model="menu_quantity[props.item.name]">
-                                                                <!--:ref="props.item.name"-->
-                                                            </v-text-field>
-                                                        </v-flex>
+                                                                  style="height: 5%; width: 70%;">
+                                            <template slot="items" slot-scope="props">
+                                        <td style="margin: 0; padding: 0;" class="mx-1 px-1">{{ props.item.name }}</td>
+                                        <td style="margin: 0; padding: 0; width: 7%;" class="mx-0 px-0">
+                                            <v-layout>
+                                                <v-flex xs2>
+                                                    <v-text-field
+                                                            type="number"
+                                                            value="1"
+                                                            min="1"
+                                                            step="1"
+                                                            v-model="menu_quantity[props.item.name]">
+                                                        <!--:ref="props.item.name"-->
+                                                    </v-text-field>
+                                                </v-flex>
 
-                                                        <v-flex xs2>
-                                                            <v-btn fab dark small color="indigo">
-                                                                <v-icon dark small
-                                                                        @click="increOne(props.item.name)">add
-                                                                </v-icon>
-                                                            </v-btn>
-                                                        </v-flex>
-                                                        <v-flex xs2>
-                                                            <v-btn fab dark small color="blue">
-                                                                <v-icon dark small
-                                                                        @click="decreOne(props.item.name)">remove
-                                                                </v-icon>
-                                                            </v-btn>
-                                                        </v-flex>
-                                                        <v-flex xs2>
-                                                            <v-btn fab color="info" dark small>
-                                                                <v-icon
-                                                                        small
-                                                                        @click="addToCart(props.item.name, canteen.canteenName, storee.storeName, props.item.price)"
-                                                                        center
-                                                                >
-                                                                    fa-cart-plus
-                                                                </v-icon>
-                                                            </v-btn>
-                                                        </v-flex>
-                                                    </v-layout>
-                                                </td>
-                                                <td class="text-xs-left" style="margin: 0; padding: 0;">{{
-                                                    props.item.price }}
-                                                </td>
-                                            </template>
+                                                <v-flex xs2>
+                                                    <v-btn fab dark small color="indigo">
+                                                        <v-icon dark small
+                                                                @click="increOne(props.item.name)">add
+                                                        </v-icon>
+                                                    </v-btn>
+                                                </v-flex>
+                                                <v-flex xs2>
+                                                    <v-btn fab dark small color="blue">
+                                                        <v-icon dark small
+                                                                @click="decreOne(props.item.name)">remove
+                                                        </v-icon>
+                                                    </v-btn>
+                                                </v-flex>
+                                                <v-flex xs2>
+                                                    <v-btn fab color="info" dark small>
+                                                        <v-icon
+                                                                small
+                                                                @click="addToCart(props.item.name, canteen.canteenName, storee.storeName, props.item.price)"
+                                                                center
+                                                        >
+                                                            fa-cart-plus
+                                                        </v-icon>
+                                                    </v-btn>
+                                                </v-flex>
+                                            </v-layout>
+                                        </td>
+                                        <td class="text-xs-left" style="margin: 0; padding: 0;">{{
+                                            props.item.price }}
+                                        </td>
+                                    </template>
                                         </v-data-table>
                                     </v-flex>
                                 </v-card>
