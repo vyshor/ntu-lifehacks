@@ -1,35 +1,32 @@
 <template>
     <div class="test ma-0 pa-0">
-        <v-container class="ma-0 pa-0">
-            <v-flex xs12 style="background-color: white" class="pa-3">
-                <h2 class="my-2">Explore Academic Services</h2>
-                <v-layout row wrap>
-                    <v-flex xs4 v-for="nav_icon in nav_icons" :key="nav_icon.title">
-                        <v-card flat class="text-xs-center" style="background-color: transparent">
-                            <v-responsive>
-                                <v-avatar class="mt-1 pa-0 mb-2">
-                                    <v-btn fab flat outline class="pa-0" router :to="nav_icon.route">
-                                        <v-icon>{{ nav_icon.icon }}</v-icon>
-                                    </v-btn>
-                                </v-avatar>
-                            </v-responsive>
-                            <v-card-text class="pa-0 mt-1">
-                                <p>{{ nav_icon.title }}</p>
-                            </v-card-text>
-                        </v-card>
-                    </v-flex>
-                </v-layout>
+        <v-flex xs12 style="background-color: white" class="pa-3">
+            <h2 class="my-2 secondary--text">Academic Services</h2>
+            <v-layout row wrap>
+                <v-flex xs4 v-for="nav_icon in nav_icons" :key="nav_icon.title">
+                    <v-card flat class="text-xs-center" style="background-color: transparent">
+                        <v-responsive>
+                            <v-avatar class="mt-1 pa-0 mb-2">
+                                <v-btn fab dark depressed color="primary" class="pa-0" router :to="nav_icon.route">
+                                    <v-icon>{{ nav_icon.icon }}</v-icon>
+                                </v-btn>
+                            </v-avatar>
+                        </v-responsive>
+                        <v-card-text class="pa-0 mb-2 mt-1">
+                            <h4 class="primary--text">{{ nav_icon.title }}</h4>
+                        </v-card-text>
+                    </v-card>
+                </v-flex>
+            </v-layout>
+        </v-flex>
+        <v-layout row wrap style="background-color: white" class="mt-2 pa-3">
+            <h2 class="mb-2 px-0 mx-2 secondary--text">Live Campus Webcam</h2>
+                <v-carousel class="mb-1 px-0 mx-2" hide-controls hide-delimiters height="auto">
+                    <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src" contain class="pa-0"></v-carousel-item>
+                </v-carousel>
 
-                <h2 class="my-2 pa-0">Live Campus Webcam</h2>
-                    <v-carousel class="mb-1 pa-0" hide-controls hide-delimiters height="auto">
-                        <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src" contain class="pa-0"></v-carousel-item>
-                    </v-carousel>
-
-                <p class="my-2">Random Information On Crowd</p>
-            </v-flex>
-        </v-container>
-
-
+            <h4 class="my-2">Random Information On Crowd</h4>
+        </v-layout>
     </div>
 </template>
 
