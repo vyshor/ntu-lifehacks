@@ -1,33 +1,48 @@
 <template>
-    <div class="makan">
-            <v-carousel class="mb-1" hide-controls hide-delimiters height="100px">
-                <v-carousel-item v-for="(item,i) in items" :key="i">
-                    <v-img :src="item.src" position="right 35% bottom 35%;"></v-img>
-                </v-carousel-item>
-            </v-carousel>
-
-            <v-flex xs12 style="background-color: white" class="pa-3">
-                <h1 class="subheading mb-3">Explore Food Services</h1>
-                <v-layout row wrap>
-                    <v-flex xs6 v-for="nav_icon in nav_icons" :key="nav_icon.title">
-                        <v-card flat class="text-xs-center" style="background-color: transparent">
-                            <v-responsive>
-                                <v-avatar class="mt-1 pa-0 mb-2">
-                                    <v-btn fab flat outline class="pa-0" router :to="nav_icon.route">
-                                        <v-icon>{{ nav_icon.icon }}</v-icon>
-                                    </v-btn>
-                                </v-avatar>
-                            </v-responsive>
-                            <v-card-text class="pa-0 mt-1">
-                                <p>{{ nav_icon.title }}</p>
-                            </v-card-text>
-                        </v-card>
-                    </v-flex>
-                </v-layout>
-
-            </v-flex>
-
-
+    <div class="makan ma-0 pa-0">
+        <v-carousel flat class="mb-1" hide-controls hide-delimiters height="250px">
+            <v-carousel-item v-for="(item,i) in items" :key="i">
+                <v-img :src="item.src" ></v-img>
+            </v-carousel-item>
+        </v-carousel>
+        <v-flex xs12 style="background-color: white" class="px-3 pt-3 pb-0">
+            <h2 class="my-2">Explore Food Services</h2>
+            <v-layout row wrap>
+                <v-flex xs6 v-for="nav_icon in nav_icons" :key="nav_icon.title">
+                    <v-card flat class="text-xs-center" style="background-color: transparent">
+                        <v-responsive>
+                            <v-avatar class="mt-1 pa-0 mb-1">
+                                <v-btn fab flat outline class="pa-0" router :to="nav_icon.route">
+                                    <v-icon>{{ nav_icon.icon }}</v-icon>
+                                </v-btn>
+                            </v-avatar>
+                        </v-responsive>
+                        <v-card-text class="pa-0 mt-1">
+                            <p>{{ nav_icon.title }}</p>
+                        </v-card-text>
+                    </v-card>
+                </v-flex>
+            </v-layout>
+        </v-flex>
+        <v-flex xs12 style="background-color: white" class="px-3 pb-3 pt-2 mt-2">
+            <h2 class="my-2">Explore Food Services</h2>
+            <v-layout row wrap>
+                <v-flex xs6 v-for="nav_icon in nav_icons" :key="nav_icon.title">
+                    <v-card flat class="text-xs-center" style="background-color: transparent">
+                        <v-responsive>
+                            <v-avatar class="mt-1 pa-0 mb-1">
+                                <v-btn fab flat outline class="pa-0" router :to="nav_icon.route">
+                                    <v-icon>{{ nav_icon.icon }}</v-icon>
+                                </v-btn>
+                            </v-avatar>
+                        </v-responsive>
+                        <v-card-text class="pa-0 mt-1">
+                            <p>{{ nav_icon.title }}</p>
+                        </v-card-text>
+                    </v-card>
+                </v-flex>
+            </v-layout>
+        </v-flex>
     </div>
 </template>
 

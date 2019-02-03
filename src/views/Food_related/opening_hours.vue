@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <v-container id="dashboard_main">
+    <div class="pa-0 ma-0">
+        <v-container id="dashboard_main" class="ma-0 px-0">
             <h1 class="subheading grey--text">Opening Hours</h1>
             <v-layout row class="mb-3">
                 <v-tooltip top v-if="allowedLocation">
@@ -18,7 +18,7 @@
                     <span>Sort projects by person</span>
                 </v-tooltip>
             </v-layout>
-            <v-container>
+            <v-container class="ma-0 pa-0">
                 <!--<v-container fluid class="my-5">-->
                 <!--fluid for smaller margin-->
                 <v-expansion-panel>
