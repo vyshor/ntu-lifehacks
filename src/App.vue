@@ -4,15 +4,17 @@
     <v-content class="mx-4 mb-4">
       <router-view></router-view>
     </v-content>
-  </v-app>
+      <BotBar></BotBar>
+    </v-app>
 </template>
 
 <script>
+    import BotBar from "@/components/BotBar"
 import Navbar from "@/components/Navbar";
 
 export default {
   name: "App",
-  components: { Navbar },
+  components: { Navbar, BotBar },
   data() {
     return {
       //
