@@ -1,7 +1,7 @@
 <template>
     <div class="test">
         <v-container>
-            <v-flex xs4 offset-xs4 style="background-color: white" class="pa-5">
+            <v-flex xs12 style="background-color: white" class="pa-3">
                 <h1 class="subheading mb-3">Explore Academic Services</h1>
                 <v-layout row wrap>
                     <v-flex xs4 v-for="nav_icon in nav_icons" :key="nav_icon.title">
@@ -35,7 +35,7 @@
 
 <script>
     export default {
-        name: "Test",
+        name: "Study",
         data () {
             return {
                 items: [

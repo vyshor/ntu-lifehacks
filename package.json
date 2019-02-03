@@ -21,6 +21,7 @@
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.7.1",
     "@vue/cli-plugin-babel": "^3.4.0",
     "@vue/cli-plugin-eslint": "^3.4.0",
     "@vue/cli-plugin-pwa": "^3.4.0",
@@ -28,6 +29,7 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
+    "font-awesome": "^4.7.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
     "vue-cli-plugin-vuetify": "^0.4.6",

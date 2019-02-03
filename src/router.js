@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Test from './views/Test'
+import Study from './views/Study'
 
 Vue.use(Router);
 
@@ -9,9 +9,9 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
-      name: 'Test',
-      component: Test
+      path: '/study',
+      name: 'Study',
+      component: Study
     },
     // {
     //   path: '/projects',
@@ -53,6 +53,26 @@ export default new Router({
       path: '/examtime',
       name: 'examtime',
       component: () => import('./views/Studies_related/ExamTiming.vue')
+    },
+    {
+      path: '/map',
+      name: 'map',
+      component: () => import('./views/Food_related/Map.vue')
+    },
+    {
+      path: '/hours',
+      name: 'opening_hours',
+      component: () => import('./views/Food_related/opening_hours.vue')
+    },
+    {
+      path: '/makan',
+      name: 'makan',
+      component: () => import('./views/Food_related/Makan.vue')
+    },
+    {
+      path: '/order',
+      name: 'buy_food',
+      component: () => import('./views/Food_related/buy_food.vue')
     }
   ]
 })
