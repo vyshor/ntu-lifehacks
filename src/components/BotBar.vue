@@ -1,29 +1,20 @@
 <template>
-    <div>
-            <v-bottom-nav
-                    :active.sync="bottomNav"
-                    :color="color"
-                    :value="true"
-                    fixed
-                    dark
-                    shift
-            >
-                <v-btn dark router to="/makan">
-                    <span>Makan</span>
-                    <v-icon>local_dining</v-icon>
-                </v-btn>
+    <v-bottom-nav :active.sync="bottomNav" :value="true" fixed color="primary" dark app>
+        <v-btn router to="/makan">
+            <span>Makan</span>
+            <v-icon>local_dining</v-icon>
+        </v-btn>
 
-                <v-btn dark router to="/study">
-                    <span>Study</span>
-                    <v-icon>assignment</v-icon>
-                </v-btn>
+        <v-btn router to="/study">
+            <span>Study</span>
+            <v-icon>assignment</v-icon>
+        </v-btn>
 
-                <v-btn dark>
-                    <span>Travel</span>
-                    <v-icon>airport_shuttle</v-icon>
-                </v-btn>
-            </v-bottom-nav>
-    </div>
+        <v-btn>
+            <span>Travel</span>
+            <v-icon>airport_shuttle</v-icon>
+        </v-btn>
+    </v-bottom-nav>
 </template>
 
 <script>
@@ -34,13 +25,6 @@
             }
         },
         computed: {
-            color () {
-                switch (this.bottomNav) {
-                    case 0: return 'blue-grey';
-                    case 1: return 'teal';
-                    case 2: return 'brown';
-                }
-            }
         }
     }
 </script>

@@ -1,11 +1,10 @@
 <template>
     <v-app class="grey lighten-4">
         <Navbar></Navbar>
-        <v-content class="mx-0 mb-5">
+        <v-content class="mx-0">
             <router-view></router-view>
         </v-content>
         <BotBar></BotBar>
-
     </v-app>
 </template>
 

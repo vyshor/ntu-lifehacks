@@ -6,19 +6,19 @@
             </v-carousel-item>
         </v-carousel>
         <v-flex xs12 style="background-color: white" class="px-3 pt-3 pb-0">
-            <h2 class="my-2">Explore Food Services</h2>
+            <h2 class="my-2 secondary--text">Food Services</h2>
             <v-layout row wrap>
                 <v-flex xs6 v-for="nav_icon in nav_icons" :key="nav_icon.title">
                     <v-card flat class="text-xs-center" style="background-color: transparent">
                         <v-responsive>
                             <v-avatar class="mt-1 pa-0 mb-1">
-                                <v-btn fab flat outline class="pa-0" router :to="nav_icon.route">
-                                    <v-icon>{{ nav_icon.icon }}</v-icon>
+                                <v-btn fab dark depressed class="pa-0" router :to="nav_icon.route" color="primary">
+                                    <v-icon dark>{{ nav_icon.icon }}</v-icon>
                                 </v-btn>
                             </v-avatar>
                         </v-responsive>
-                        <v-card-text class="pa-0 mt-1">
-                            <p>{{ nav_icon.title }}</p>
+                        <v-card-text class="pa-0 mt-1 mb-2">
+                            <h4 class="primary--text">{{ nav_icon.title }}</h4>
                         </v-card-text>
                     </v-card>
                 </v-flex>
@@ -26,7 +26,7 @@
         </v-flex>
         <v-layout row wrap style="background-color: white" class="px-3 pb-0 pt-2 mt-2">
             <v-flex xs12>
-                <h2 class="my-2">North Spine</h2>
+                <h2 class="my-2 secondary--text">North Spine</h2>
             </v-flex>
             <v-flex xs6 v-for="(foodplace,index) in northspine" v-if="index < 4" class="px-2 pb-4">
                 <v-img :src="foodplace.src" ></v-img>
@@ -35,7 +35,7 @@
         </v-layout>
         <v-layout row wrap style="background-color: white" class="px-3 pb-0 pt-2 mt-2">
             <v-flex xs12>
-                <h2 class="my-2">South Spine</h2>
+                <h2 class="my-2 secondary--text">South Spine</h2>
             </v-flex>
             <v-flex xs6 v-for="(foodplace,index) in southspine" v-if="index < 4" class="px-2 pb-4">
                 <v-img :src="foodplace.src" ></v-img>
@@ -44,7 +44,7 @@
         </v-layout>
         <v-layout row wrap style="background-color: white" class="px-3 pb-0 pt-2 mt-2">
             <v-flex xs12>
-                <h2 class="my-2">Canteen</h2>
+                <h2 class="my-2 secondary--text">Canteen</h2>
             </v-flex>
             <v-flex xs6 v-for="(foodplace,index) in canteen" v-if="index < 4" class="px-2 pb-4">
                 <v-img :src="foodplace.src" ></v-img>
@@ -53,9 +53,9 @@
         </v-layout>
         <v-layout row wrap style="background-color: white" class="px-3 pb-0 py-2 mt-2">
             <v-flex xs12>
-                <h2 class="my-2">Around Campus</h2>
+                <h2 class="my-2 secondary--text">Around Campus</h2>
             </v-flex>
-            <v-flex xs6 v-for="(foodplace,index) in discover" v-if="index < 4" class="px-2 pb-4">
+            <v-flex xs6 v-for="(foodplace,index) in discover" v-if="index < 4" class="px-2">
                 <v-img :src="foodplace.src" ></v-img>
                 <h4>{{foodplace.name}}</h4>
             </v-flex>
