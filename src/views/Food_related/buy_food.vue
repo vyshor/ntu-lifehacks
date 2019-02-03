@@ -191,7 +191,7 @@
                     <v-btn
                              v-else
                             color="primary"
-                            @click="e1 = 1"
+                            @click="submitOrder()"
                     >
                         Confirm2
 
@@ -211,6 +211,7 @@
     import processFireBase from '@/mixins/processFireBase';
     import locationMethods from '@/mixins/locationMethods';
     import Login from '@/views/pre_login/Login';
+    import db from '@/fb.js';
 
 
     export default {
@@ -398,10 +399,22 @@
                 this.snackbar2 = true;
             },
             submitOrder: function() {
-                // check if logged in
-                if (!this.loggedin) {
-                    this.promptLogin();
+                const docRef = db.collection('users').doc('' + this.user_id).collection('orders').doc();
+                const order_id = docRef.id;
+
+                let all_orders = {};
+                for (let [idx, order] of Object.entries(this.cart)) {
+                    order.status = 'paid';
+                    order.uid = order_id + '_' + idx;
+                    date = new Date();
+                    order.time = date.getTime();
+                    // need to filter and send to respective vendor here
+                    all_orders[order.uid] = order;
                 }
+
+                docRef.set(
+                    all_orders
+                ).then(); // promise if success
             }
         },
         updated() {
