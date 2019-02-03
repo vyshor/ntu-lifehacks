@@ -1,5 +1,14 @@
 <template>
     <div>
+        <v-snackbar v-model="snackbar" :timeout="4000" top color="success">
+            <span>You have successfully logged in.</span>
+            <v-btn flat color="white" @click="snackbar = false">Close</v-btn>
+        </v-snackbar>
+        <v-snackbar v-model="snackbar2" :timeout="4000" top color="success">
+            <span>You have successfully signed up.</span>
+            <v-btn flat color="white" @click="snackbar2 = false">Close</v-btn>
+        </v-snackbar>
+
         <v-stepper v-model="e1">
             <v-stepper-header>
                 <v-stepper-step :complete="e1 > 1" step="1">Pick your food</v-stepper-step>
@@ -178,11 +187,14 @@
                             height="200px"
                     ></v-card>
 
+                    <Login @loggedIn="loggingIn()" @signedUp2="signingUp()" v-if="!loggedin"></Login>
                     <v-btn
+                             v-else
                             color="primary"
                             @click="e1 = 1"
                     >
-                        Confirm
+                        Confirm2
+
                     </v-btn>
 
                     <v-btn flat>Cancel</v-btn>
@@ -198,15 +210,24 @@
     import Vue from 'vue';
     import processFireBase from '@/mixins/processFireBase';
     import locationMethods from '@/mixins/locationMethods';
+    import Login from '@/views/pre_login/Login';
 
 
     export default {
-        components: {},
+        components: {
+            Login
+        },
         mixins: [processFireBase, locationMethods],
         data() {
             return {
+                // for firebase auth
+                loggedin: false,
+                user_id: '',
+                snackbar: false,
+                snackbar2: false,
+                //
                 canteen_info: {},
-                e1: 0,
+                e1: 0, // for the step process
                 selected_store: {},
                 menu_quantity: {},
                 headers: [
@@ -259,6 +280,9 @@
         },
         created() {
             this.preloadDishes();
+        },
+        mounted() {
+            this.checkLoginStatus();
         },
         methods: {
             preloadDishes: function () {
@@ -350,7 +374,34 @@
                 this.cart.splice(index, 1);
             },
             saveOrderToDatabase: function() {
-                
+
+            },
+            checkLoginStatus: function () {
+                let user = firebase.auth().currentUser;
+                console.log(user);
+                if (user) {
+                    this.loggedin = true;
+                    this.user_id = user.uid;
+                } else {
+                    this.loggedin = false;
+                }
+                console.log(this.loggedin);
+            },
+            loggingIn: function() {
+                this.loggedin = true;
+                this.user_id = firebase.auth().currentUser.uid;
+                this.snackbar = true;
+            },
+            signingUp: function() {
+                this.loggedin = true;
+                this.user_id = firebase.auth().currentUser.uid;
+                this.snackbar2 = true;
+            },
+            submitOrder: function() {
+                // check if logged in
+                if (!this.loggedin) {
+                    this.promptLogin();
+                }
             }
         },
         updated() {

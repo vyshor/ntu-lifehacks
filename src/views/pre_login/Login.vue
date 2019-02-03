@@ -1,8 +1,12 @@
 <template>
-    <div>
-        <div id="homepage_top">
-            <div class="center row" id="login_field_container">
-                <form action="">
+    <v-dialog max-width="600px" v-model="dialog">
+        <v-btn flat slot="activator" class="success">Confirm</v-btn>
+        <v-card>
+            <v-card-title>
+                <h2>Login</h2>
+            </v-card-title>
+            <v-card-text>
+                <v-form class="px-3" ref="form">
                     <label for="email">Email</label>
                     <v-text-field label="Email" v-model="email" prepend-icon="folder"></v-text-field>
 
@@ -13,35 +17,47 @@
                     <router-link to="/signup" class="error_message" v-if="no_account_message">{{ no_account_message }}
                     </router-link>
                     <p class="error_message" v-if="error_message">{{ error_message }}</p>
-                    <v-btn flat class="success" @click="signIn">Login</v-btn>
-                </form>
-            </div>
-        </div>
-    </div>
+
+                    <v-spacer></v-spacer>
+                    <v-btn flat class="success" @click="signIn()" :loading="loading">Login</v-btn>
+                    <Signup @signedUp="signedUp()"></Signup>
+
+                </v-form>
+            </v-card-text>
+        </v-card>
+    </v-dialog>
+
 </template>
 
 <script>
     import firebase from 'firebase';
+    import Signup from '@/views/pre_login/Signup.vue';
 
     export default {
         name: 'login',
+        components: {
+            Signup
+        },
         data() {
             return {
                 email: 'hara@hara.com',
                 password: 'dingdong1231',
                 no_account_message: '',
-                error_message: ''
+                error_message: '',
+                loading: false,
+                dialog: false
             }
         },
         methods: {
-            signIn: function (e) {
-                e.preventDefault();
+            signIn: function () {
                 let self = this;
                 this.no_account_message = "";
                 this.error_message = "";
                 firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
                     (user) => {
-                        this.$router.replace('dashboard')
+                        this.loading = false;
+                        this.dialog = false;
+                        this.$emit('loggedIn')
                     },
                     (err) => {
                         // console.log(err);
@@ -54,45 +70,17 @@
                         }
                     }
                 )
+            },
+            signedUp: function() {
+                this.loading = false;
+                this.dialog = false;
+                this.$emit('signedUp2')
             }
         }
     }
 </script>
 
 <style scoped>
-    .grey_btn {
-        margin-top: 12%;
-        height: 7%;
-        width: 20%;
-        line-height: 200%;
-        border-radius: 15px;
-
-        font-family: 'Hobo Std';
-        font-size: 2.25rem;
-        color: #000;
-
-        background-color: #BFB2BF;
-    }
-
-    #homepage_top {
-        height: 840px;
-
-        /*background-image: url('../../assets/backdrop_clear.png');*/
-        background-position: center bottom;
-        background-repeat: no-repeat;
-        background-size: cover;
-
-    }
-
-    #login_field_container {
-        width: 50%;
-        height: 70%;
-        background-color: #FFF;
-        opacity: 0.9;
-        border: 1px solid #707070;
-
-    }
-
     label {
         font-family: 'Hobo Std';
         font-size: 2.25rem;
