@@ -10,7 +10,7 @@
             <v-icon>assignment</v-icon>
         </v-btn>
 
-        <v-btn>
+        <v-btn router to="/bus">
             <span>Travel</span>
             <v-icon>airport_shuttle</v-icon>
         </v-btn>

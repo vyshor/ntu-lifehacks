@@ -47,10 +47,8 @@
             return {
                 drawer: false,
                 links: [
-                    {icon: 'dashboard', text: 'Dashboard', route: '/'},
-                    {icon: 'folder', text: 'My Projects', route: '/projects'},
-                    {icon: 'person', text: 'Team', route: '/team'},
-                    {icon: 'person', text: 'Map', route: '/map'},
+                    {icon: 'dashboard', text: 'Profile', route: '/'},
+                    {icon: 'fa-cog', text: 'Settings', route: '/projects'}
                 ]
             }
         },
