@@ -11,18 +11,18 @@
           ></v-select>
         </v-flex>
         <v-flex xs6>
-          <v-select :items="facilities" label="Facility" v-on:change="getBookings"></v-select>
+          <v-select :items="facilities" label="Facility" v-model = "facility" @change="getBookings($event)"></v-select>
         </v-flex>
       </v-layout>
       <v-layout row wrap>
         <v-flex xs4>
-          <v-select :items="days" label="Day" item-text="name" item-value="id"></v-select>
+          <v-select :items="days" label="Day" item-text="name" v-model = "bookDay" item-value="id"></v-select>
         </v-flex>
         <v-flex xs4>
-          <v-select :items="timeslots" label="Start" item-text="start" item-value="id"></v-select>
+          <v-select :items="timeslots" label="Start" item-text="start" v-model = "startTime" item-value="id"></v-select>
         </v-flex>
         <v-flex xs4>
-          <v-select :items="timeslots" label="End" item-text="end" item-value="id"></v-select>
+          <v-select :items="timeslots" label="End" item-text="end" v-model = "endTime" item-value="id"></v-select>
         </v-flex>
       </v-layout>
       <v-layout row wrap>
@@ -47,13 +47,13 @@
               <v-card-text class="px-0">{{ day.name }}</v-card-text>
             </v-card>
             <v-card v-for="timeslot in timeslots">
-              <v-card-text class="px-0 empty">&nbsp;</v-card-text>
+                <v-card-text class="px-0 empty blue darken-4" v-if="checkOccupied((day.id - 1) * 27 + timeslot.id)">&nbsp;</v-card-text>
+              <v-card-text class="px-0 empty" v-else>&nbsp;</v-card-text>
             </v-card>
           </v-flex>
         </v-layout>
       </v-container>
     </v-layout>
-    <p>{{bookingdata}}</p>
   </v-container>
 </template>
 
@@ -74,6 +74,7 @@ export default {
   data() {
     return {
       locationIn: null,
+      occupiedidx: [],
 
       booked: [],
       operatingHours: null,
@@ -114,7 +115,12 @@ export default {
       timeslots: [],
       locations: [],
       facilities: [],
-      bookings: []
+      bookings: [],
+
+      bookDay: null,
+      startTime: null,
+      endTime: null,
+      facility: null
     };
   },
   mounted() {
@@ -146,19 +152,36 @@ export default {
       });
   },
   methods: {
-    getBookings(facId) {
-      console.log(this.locationIn);
-
+    getBookings(facility) {
+        console.log(this.facilitydata[this.locationIn][facility]);
       axios
         .get(
-          "http://192.168.31.167/booking/library/" + this.facilitydata[facId]
+          "http://192.168.31.167/booking/library/" + this.facilitydata[this.locationIn][facility]
         )
         .then(response => {
           this.bookingdata = response.data;
+          console.log(response.data);
           this.operatingHours = this.bookingdata.operatingHours;
+        for (let info in response.data) {
+            
+        const time_idx = response.data["Bookings"];
+        console.log(time_idx);
+            const coord = time_idx[0]["TimeCoordinate"];
+            console.log(coord);
+            const start_idx = (coord.Weekday - 1) * 27 +  coord.StartTimeCoordinate;
+            const end_idx = (coord.Weekday - 1) * 27 +  coord.EndTimeCoordinate;
+            for (let i = start_idx; i <= end_idx; i++) {
+                this.occupiedidx.push(i);
+            }
+    
+        }
         });
     },
+    checkOccupied(idx) {
+        return this.occupiedidx.includes(idx);
+    },
     getFacilities(loc) {
+      console.log(this.locationIn);
       this.facilities = [];
       for (var key in this.facilitydata[loc]) this.facilities.push(key);
     },
@@ -176,7 +199,10 @@ export default {
     },
     preview() {},
     bookFacility() {
-      alert("test");
+        axios({
+            url:"192.168.31.167/booking/library//book"
+        })
+
       bookingForm.submit();
     },
     content(day, timeslot) {
