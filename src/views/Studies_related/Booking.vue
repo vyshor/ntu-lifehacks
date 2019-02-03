@@ -68,10 +68,10 @@
             return {
                 locationIn: null,
 
-                booked: [],
-                operatingHours: null,
-                days: [
-                    {
+      booked: [],
+      operatingHours: null,
+      days: [
+        {
                         'id': 1,
                         'name': 'Mon'
                     },
