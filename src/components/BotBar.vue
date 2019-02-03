@@ -1,6 +1,5 @@
 <template>
     <div>
-        <v-card>
             <v-bottom-nav
                     :active.sync="bottomNav"
                     :color="color"
@@ -23,9 +22,7 @@
                     <span>Travel</span>
                     <v-icon>airport_shuttle</v-icon>
                 </v-btn>
-
             </v-bottom-nav>
-        </v-card>
     </div>
 </template>
 
