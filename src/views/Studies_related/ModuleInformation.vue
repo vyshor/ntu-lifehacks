@@ -1,15 +1,23 @@
 <template>
-  <div class="resp-container">
-    <h1>Module Information</h1>
-    <iframe class="resp-iframe" :src="courseDescriptionURL" frameborder="0"></iframe>
+  <div>
     <v-app id="inspire">
       <v-form>
         <v-container>
           <v-layout row wrap>
             <v-flex xs12 sm6 md3>
-              <v-text-field label="Course Code" outline v-on:change="changeURL" v-model="courseCode"></v-text-field>
+              <v-text-field
+                label="Course Code"
+                outline
+                v-on:change="changeURL"
+                v-model="courseCode"
+              ></v-text-field>
             </v-flex>
           </v-layout>
+          
+    <div class="resp-container">
+      <h1>Module Information</h1>
+      <iframe class="resp-iframe" :src="courseDescriptionURL" frameborder="0"></iframe>
+    </div>
         </v-container>
       </v-form>
     </v-app>
@@ -21,15 +29,21 @@ export default {
   name: "ModuleInformation",
   data() {
     return {
-      courseCode: "_",
-      courseDescriptionURL:
-        "https://wish.wis.ntu.edu.sg/webexe/owa/AUS_SUBJ_CONT.main_display1?acadsem=2018_2&r_subj_code=" + courseCode + "&acad=2018&semester=2&boption=Search"
+      courseCode: "HY0001",
     };
   },
-  methods: {
-      changeURL(){
-          courseCode
+  computed: {
+      courseDescriptionURL: function() {
+          return "https://wish.wis.ntu.edu.sg/webexe/owa/AUS_SUBJ_CONT.main_display1?acadsem=2018_2&r_subj_code=" +
+        this.courseCode +
+        "&acad=2018&semester=2&boption=Search"
       }
+    
+  },
+  methods: {
+    changeURL() {
+      courseCode;
+    }
   }
 };
 </script>

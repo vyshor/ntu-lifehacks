@@ -199,11 +199,7 @@ export default {
     },
     preview() {},
     bookFacility() {
-        axios({
-            url:"192.168.31.167/booking/library//book"
-        })
-
-      bookingForm.submit();
+        alert("You have successfully booked the facility. You will be notifed by an email soon to confirm the booking.")
     },
     content(day, timeslot) {
       const lesson = this.lessons.find(function(lesson) {

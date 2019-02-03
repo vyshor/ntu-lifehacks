@@ -1,45 +1,45 @@
 <template>
-    <div>
-        <div id="homepage_top">
-            <div class="center">
-                <!--<img :src="image" class="brand-logo"/>-->
-            </div>
-            <div class="center row" id="login_field_container">
-                <form action="">
-                    <div class="row">
-                        <label for="name">Name</label>
-                        <v-text-field label="Name" v-model="name" prepend-icon="folder"></v-text-field>
+    <v-dialog max-width="600px" v-model="dialog">
+        <v-btn flat slot="activator" class="success">SignUp</v-btn>
+        <v-card>
+            <v-card-title>
+                <h2>Login</h2>
+            </v-card-title>
+            <v-card-text>
+                <v-form class="px-3" ref="form">
+                    <label for="name">Name</label>
+                    <v-text-field label="Name" v-model="name" prepend-icon="folder"></v-text-field>
 
-                        <label for="email">Email</label>
-                        <v-text-field label="Email" v-model="email" prepend-icon="folder"></v-text-field>
-                        <span class="helper-text" data-error="Invalid email" data-success="Valid email"></span>
+                    <label for="email">Email</label>
+                    <v-text-field label="Email" v-model="email" prepend-icon="folder"></v-text-field>
+                    <span class="helper-text" data-error="Invalid email" data-success="Valid email"></span>
 
 
-                        <label for="password">Password</label>
-                        <div class="input-field">
-                            <!--<input type="password" name="password" v-model="password" id="password" class="validate">-->
-                            <password
-                                    v-model="password"
-                                    :toggle="true"
-                                    @score="showScore"
-                                    @feedback="showFeedback"
-                            />
-                            <div id="password-strength-text-container">
-                                <p id="password-strength-text">{{ password_strength }}</p>
-                            </div>
-                            <span class="error_message" v-if="error_message">{{ error_message }}</span>
-                            <!--<vue-recaptcha-->
-                            <!--ref="recaptcha"-->
-                            <!--@verify="onCaptchaVerified"-->
-                            <!--@expired="onCaptchaExpired"-->
-                            <!--sitekey="6LeTW3cUAAAAAKHuXqpMOU5k_oP4ywr_oqMJIU_o" ></vue-recaptcha>-->
+                    <label for="password">Password</label>
+                    <div class="input-field">
+                        <!--<input type="password" name="password" v-model="password" id="password" class="validate">-->
+                        <password
+                                v-model="password"
+                                :toggle="true"
+                                @score="showScore"
+                                @feedback="showFeedback"
+                        />
+                        <div id="password-strength-text-container">
+                            <p id="password-strength-text">{{ password_strength }}</p>
                         </div>
+                        <span class="error_message" v-if="error_message">{{ error_message }}</span>
+                        <!--<vue-recaptcha-->
+                        <!--ref="recaptcha"-->
+                        <!--@verify="onCaptchaVerified"-->
+                        <!--@expired="onCaptchaExpired"-->
+                        <!--sitekey="6LeTW3cUAAAAAKHuXqpMOU5k_oP4ywr_oqMJIU_o" ></vue-recaptcha>-->
+
+                        <v-btn flat class="success" @click="signUp()">Sign up</v-btn>
                     </div>
-                    <v-btn flat class="success" @click="signUp">Sign up</v-btn>
-                </form>
-            </div>
-        </div>
-    </div>
+                </v-form>
+            </v-card-text>
+        </v-card>
+    </v-dialog>
 </template>
 
 <script>
@@ -73,7 +73,9 @@
                     v => v.length >= 3 || 'Minimum length is 3 characters'
                 ],
                 password_score: '',
-                error_message: ''
+                error_message: '',
+                loading: false,
+                dialog: false
             }
         },
         computed: {
@@ -90,8 +92,7 @@
         },
 
         methods: {
-            signUp: function (e) {
-                e.preventDefault();
+            signUp: function () {
                 // this.verifyToken();
                 // return;
                 let self = this;
@@ -119,7 +120,9 @@
                         const password = self.password;
                         self.post(uid, name, email, password);
 
-                        self.$router.replace('dashboard');
+                        this.loading = false;
+                        this.dialog = false;
+                        this.$emit('signedUp');
                     },
                     (err) => {
                         // alert("Oops. " + err.message);
