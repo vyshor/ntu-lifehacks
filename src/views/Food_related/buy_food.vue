@@ -87,7 +87,7 @@
                                     </td>
                                     <td style="margin: 0; padding: 0; width: 7%;" class="mx-0 px-0">
                                         <v-btn fab dark small color="indigo">
-                                            <v-icon dark small @click="removeFromCart(props.item)">cross</v-icon>
+                                            <v-icon dark small @click="removeFromCart(props.item)">close</v-icon>
                                         </v-btn>
                                     </td>
                                 </template>
@@ -95,7 +95,7 @@
                         </v-flex>
                     </v-card>
 
-                    <p>Total Cost: {{ this.total_cost }}</p>
+                    <p>Total Cost: $ {{ this.total_cost }}</p>
 
                     <v-btn color="primary" @click="e1 = 3">Proceed to payment</v-btn>
                     <v-btn color="success" @click="e1 = 1">Back</v-btn>
@@ -342,7 +342,7 @@
             total_cost: function() {
                 let total = 0.;
                 for (let order of this.cart) {
-                    total += parseFloat(order.price) * parseInt(order.qty);
+                    total += parseFloat((order.price + "").match(/[+-]?\d+(?:\.\d+)?/g)[0]) * parseInt(order.qty);
                     console.log(order.price, order.qty);
                 }
                 return total;

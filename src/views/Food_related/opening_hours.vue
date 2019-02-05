@@ -5,17 +5,17 @@
             <v-layout row class="mb-3">
                 <v-tooltip top v-if="allowedLocation">
                     <v-btn small flat color="grey" @click="sortBy('distance')" slot="activator">
-                        <v-icon left small>folder</v-icon>
+                        <v-icon left small>directions_walk</v-icon>
                         <span class="caption text-lowercase">By distance</span>
                     </v-btn>
                     <span>Sort outlets by nearest distance</span>
                 </v-tooltip>
                 <v-tooltip top>
-                    <v-btn small flat color="grey" @click="sortBy('person')" slot="activator">
-                        <v-icon left small>person</v-icon>
-                        <span class="caption text-lowercase">By person</span>
+                    <v-btn small flat color="grey" @click="sortBy('rating')" slot="activator">
+                        <v-icon left small>rate_review</v-icon>
+                        <span class="caption text-lowercase">By rating</span>
                     </v-btn>
-                    <span>Sort projects by person</span>
+                    <span>Sort outlets by highest rating</span>
                 </v-tooltip>
             </v-layout>
             <v-container class="ma-0 pa-0">
@@ -29,6 +29,20 @@
                                 <!--<div class="font-weight-bold">due by {{ project.due }}</div>-->
                                 <div><pre>{{ canteen.hours }}
                                 </pre>
+                                    Address: <span>{{ canteen.info.address }}</span>
+                                    <br>
+                                    <span v-if="canteen.info.rating">Rating: {{ canteen.info.rating }}
+                                    <br></span>
+                                    <span v-if="canteen.info.international_phone_number">Number: {{ canteen.info.international_phone_number }}</span>
+                                    <div v-if="canteen.hasOwnProperty('popular')">
+                                        <bars
+                                                :data="canteen.popular"
+                                                :barWidth="10"
+                                                :gradient="['#6fa8dc', '#42b983']">
+                                        </bars>
+                                        <p class="caption text-sm-center">Crowd Level for Different Times of Day</p>
+                                    </div>
+
                                 </div>
                             </v-card-text>
                         </v-card>
@@ -62,7 +76,11 @@
         },
         methods: {
             sortBy(prop) {
-                this.canteen_info.sort((a, b) => a[prop] < b[prop] ? -1 : 1)
+                if (prop === 'distance') {
+                    this.canteen_info.sort((a, b) => a[prop] < b[prop] ? -1 : 1)
+                } else {
+                    this.canteen_info.sort((a, b) => a[prop] > b[prop] ? -1 : 1)
+                }
             },
             loadCanteensAndDistanceFromFirebase: function (pos) {
                 let self = this;
@@ -77,12 +95,36 @@
                             if (self.allowedLocation) {
                                 data.distance = self.distance(pos.lat, pos.lng, data.lat, data.long)
                             }
+                            data.rating = data.info.rating;
+                            if (data.info.hasOwnProperty('populartimes')) {
+                                let popular_data = [];
+                                let i = 0;
+                                for (let height of data.info.populartimes[(new Date()).getDay()].data) {
+                                    // console.log(height);
+                                    popular_data.push({value: height, title: self.indexToTime(i)});
+                                    i++;
+                                }
+                                data.popular = popular_data;
+                            }
+
                             self.canteen_info.push(data);
                         }
 
                         // console.log(self.canteen_info);
                     }
                 )
+            },
+            indexToTime(idx) {
+                let suffix = "AM";
+                if (idx >= 12) {
+                    suffix = "PM";
+                    idx = idx - 12;
+                }
+                if (idx === 0) {
+                    idx = 12;
+                }
+
+                return idx + ' ' + suffix;
             }
         },
         updated() {

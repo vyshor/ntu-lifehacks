@@ -11,7 +11,7 @@ export default new Router({
     {
       path: '/study',
       name: 'Study',
-      component: Study
+      component: () => import('./views/Study.vue')
     },
     // {
     //   path: '/projects',
@@ -78,6 +78,11 @@ export default new Router({
       path: '/bus',
       name: 'bus',
       component: () => import('./views/Travel/Bus.vue')
+    },
+      {
+      path: '/',
+      redirect: 'makan'
     }
+
   ]
 })

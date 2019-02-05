@@ -1,14 +1,14 @@
 {
-  "name": "ntu_lifehacks",
-  "short_name": "ntu_lifehacks",
+  "name": "NTUlifehacks",
+  "short_name": "NTUlifehacks",
   "icons": [
     {
-      "src": "./img/icons/android-chrome-192x192.png",
+      "src": "./img/icons/android-launchericon-192-192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "./img/icons/android-chrome-512x512.png",
+      "src": "./img/icons/android-launchericon-512-512.png",
       "sizes": "512x512",
       "type": "image/png"
     }

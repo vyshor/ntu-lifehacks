@@ -3,9 +3,12 @@ import './plugins/vuetify'
 import App from './App.vue'
 import router from './router'
 import * as VueGoogleMaps from "vue2-google-maps"
+import Bars from 'vuebars'
 
+window.$ = window.jQuery = require('jquery');
 Vue.config.productionTip = false;
 
+Vue.use(Bars);
 Vue.use(VueGoogleMaps, {
   load: {
     key: "AIzaSyANzkX8usvRMGp7TJSLFVaFtq-rCXSXfQ0",
