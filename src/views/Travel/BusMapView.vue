@@ -30,6 +30,8 @@
     const ORIENTATION_TRESHOLD = 10;
     const MAGIC_NEXT_BUSES_HEIGHT = 150;
 
+    const GITRAW_BLUE = "https://raw.githubusercontent.com/vyshor/ntu-lifehacks/master/src/views/Travel/new_Blue_Bus_Stop.json";
+    const GITRAW_RED = "https://raw.githubusercontent.com/vyshor/ntu-lifehacks/master/src/views/Travel/new_Red_Bus_Stop.json";
     const mockedCurrentLocation = 'Nanyang Drive';
 
     export default {
@@ -124,6 +126,12 @@
                 this.active = Math.min(this.active + 1, this.busColors.length - 1);
                 this.scrollY = 0;
             },
+            getBusStopData() {
+                $.ajax(GITRAW_BLUE, {
+                        async: true, success: function (res) {
+                        console.log(res);
+                    }
+            });
         },
         mounted() {
             this.$nextTick(() => {
@@ -131,6 +139,7 @@
                 this.screenWidth = container.getBoundingClientRect().width;
             });
             window.addEventListener('wheel', e => e.preventDefault());
+            this.getBusStopData();
         },
     };
 </script>

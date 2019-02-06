@@ -1,0 +1,35 @@
+{
+  "external_id": "SNDS://27251",
+  "forecast": [
+    {
+      "forecast_seconds": 151.44037029966705,
+      "route": {
+        "id": 11818,
+        "name": "Bus Campus WeekEnd Rider Brown [Singapore]",
+        "short_name": "Campus WeekEnd Rider Brown"
+      },
+      "rv_id": 44481,
+      "total_pass": 582.9606666666667,
+      "vehicle": "31409 PC 4964 L [RFID]/ at NTU Bus park of NTU",
+      "vehicle_id": 31409
+    },
+    {
+      "forecast_seconds": 534.0646205091431,
+      "route": {
+        "id": 11818,
+        "name": "Bus Campus WeekEnd Rider Brown [Singapore]",
+        "short_name": "Campus WeekEnd Rider Brown"
+      },
+      "rv_id": 44481,
+      "total_pass": 3705.362666666667,
+      "vehicle": "31503 PA 8008 Q [RFID]/ at NTU Bus park of NTU",
+      "vehicle_id": 31503
+    }
+  ],
+  "id": 378229,
+  "name": "Yunnan Gardens",
+  "name_en": "",
+  "name_ru": "",
+  "nameslug": "",
+  "resource_uri": "/routes/api/platformbusarrival/378229/"
+}
