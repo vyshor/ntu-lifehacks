@@ -1,0 +1,64 @@
+{
+  "external_id": null,
+  "id": 44479,
+  "name": "Bus Campus Loop - Blue (CL-B) [Singapore]: NIE, Opp. LWN Library - NIE, Opp. LWN Library",
+  "name_en": null,
+  "name_ru": null,
+  "nameslug": null,
+  "resource_uri": "/routes/apigeo/routevariantvehicle/44479/",
+  "routename": "Campus Loop - Blue (CL-B)None",
+  "vehicles": [
+    {
+      "bearing": 144,
+      "device_ts": "2019-02-06T05:45:17",
+      "enterprise": {
+        "enterprise_id": 410,
+        "enterprise_name": "NTU"
+      },
+      "lat": "1.345486000000",
+      "lon": "103.688014000000",
+      "park": {
+        "park_id": 426,
+        "park_name": "NTU Bus park"
+      },
+      "position": {
+        "bearing": 144,
+        "device_ts": 1549421117,
+        "lat": "1.345486000000",
+        "lon": "103.688014000000",
+        "speed": 22,
+        "ts": 1549421135
+      },
+      "projection": {
+        "edge_distance": "0.588",
+        "edge_id": 386849,
+        "edge_projection": "245.049",
+        "edge_start_node_id": 333293,
+        "edge_stop_node_id": 333295,
+        "lat": "1.345482877462",
+        "lon": "103.688009729784",
+        "orig_lat": "1.345486000000",
+        "orig_lon": "103.688014000000",
+        "routevariant_id": 44479,
+        "ts": 1549421135
+      },
+      "registration_code": "PC 2048 G [RFID]",
+      "routevariant_id": 44479,
+      "speed": "21.91",
+      "stats": {
+        "avg_speed": "21.00",
+        "bearing": 144,
+        "cumm_speed_10": "20.95",
+        "cumm_speed_2": "21.91",
+        "device_ts": 1549421117,
+        "lat": "1.345486000000",
+        "lon": "103.688014000000",
+        "speed": 22,
+        "ts": 1549421135
+      },
+      "ts": "2019-02-06T05:45:35",
+      "vehicle_id": 31423
+    }
+  ],
+  "via": null
+}

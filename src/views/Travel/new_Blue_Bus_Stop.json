@@ -1,0 +1,86 @@
+[
+  {
+    "index": 0,
+    "lat": 1.34804764383,
+    "title": "NIE, Opp. LWN Library",
+    "code": 378225,
+    "lng": 103.680283228
+  },
+  {
+    "index": 1,
+    "lat": 1.35034519948,
+    "title": "Opp. Hall 3 & 16",
+    "code": 382999,
+    "lng": 103.680461149
+  },
+  {
+    "index": 2,
+    "lat": 1.35339055158,
+    "title": "Opp. Hall 14 & 15",
+    "code": 378203,
+    "lng": 103.681786783
+  },
+  {
+    "index": 3,
+    "lat": 1.354848,
+    "title": "Opp Nanyang Crescent Hall",
+    "code": 383048,
+    "lng": 103.683937
+  },
+  {
+    "index": 4,
+    "lat": 1.35443958663,
+    "title": "Opp. Hall 10 & 11",
+    "code": 378222,
+    "lng": 103.687251701
+  },
+  {
+    "index": 5,
+    "lat": 1.3515000052,
+    "title": "Nanyang Heights, Opp. Hall 8",
+    "code": 383003,
+    "lng": 103.685890796
+  },
+  {
+    "index": 6,
+    "lat": 1.34801584806,
+    "title": "Hall 6, Opp. Hall 2",
+    "code": 378234,
+    "lng": 103.686689453
+  },
+  {
+    "index": 7,
+    "lat": 1.34360593715,
+    "title": "Opp. Hall 4",
+    "code": 383004,
+    "lng": 103.686880811
+  },
+  {
+    "index": 8,
+    "lat": 1.34207021387,
+    "title": "Opp. Innovation Centre",
+    "code": 383006,
+    "lng": 103.683904736
+  },
+  {
+    "index": 9,
+    "lat": 1.3419060437,
+    "title": "Opp. SPMS",
+    "code": 383009,
+    "lng": 103.681078989
+  },
+  {
+    "index": 10,
+    "lat": 1.3420773,
+    "title": "Opp. WKWSCI",
+    "code": 383010,
+    "lng": 103.679006
+  },
+  {
+    "index": 11,
+    "lat": 1.3460201,
+    "title": "Opp. CEE",
+    "code": 383015,
+    "lng": 103.678352
+  }
+]

@@ -77,7 +77,7 @@ export default new Router({
     {
       path: '/bus',
       name: 'bus',
-      component: () => import('./views/Travel/Bus.vue')
+      component: () => import('./views/Travel/BusMapView.vue')
     },
       {
       path: '/',
