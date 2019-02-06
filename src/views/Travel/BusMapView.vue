@@ -12,12 +12,10 @@
                              :orientation="orientation" :color="color" :dragged="pos"
                              :dragging="dragging"
                              :arrival_data="arrival_data"/>
-            <!--<div class="topOverlay"></div>-->
             <div class="currentLocation" v-if="picked_stop_idx !== -1">
                 <img src="../../assets/SVG/pin_map.svg" class="location__pinIcon"/>
                 <div class="location__text">{{ currentLocation }}</div>
             </div>
-            <!--<div class="bottomOverlay"></div>-->
         </div>
     </div>
 </template>
@@ -234,42 +232,22 @@
         justify-content: center;
         align-items: center;
         width: 100vw;
-        height: 100vh;
+        height: calc(100vh - 112px);
     }
 
     .app__container {
         position: relative;
         background: rgb(214, 214, 214);
-        width: 414px;
-        height: 720px;
-        max-height: 100%;
-        max-width: 100%;
+        width: 100%;
+        height: 100%;
         box-shadow: 0 12px 50px -20px rgba(0, 0, 0, .4);
         border-radius: 5px;
         overflow: hidden;
     }
 
-    .bottomOverlay {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 300px;
-        background: linear-gradient(5deg, rgb(220, 220, 220) 40%, rgba(220, 220, 220, 0) 90%);
-    }
-
-    .topOverlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100px;
-        background: linear-gradient(to bottom, rgb(200,200,200) -10%, rgba(200, 200, 200, 0));
-    }
-
     .currentLocation {
         position: absolute;
-        top: 40px;
+        top: 10px;
         left: calc(15% - 10px);
         width: calc(70% + 20px);
         height: 50px;
@@ -288,5 +266,8 @@
             flex-grow: 1;
             text-align: center;
         }
+    }
+    .info {
+        background-color: rgba(0, 0, 0, 0) !important;
     }
 </style>

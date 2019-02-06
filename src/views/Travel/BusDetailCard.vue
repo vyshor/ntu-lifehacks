@@ -50,7 +50,7 @@
       <div class="infos" :class="{ hidden: showMainCard }">
         <div class="info time">
           <div class="label">Arriving in</div>
-          <div class="value" v-if="arrival.arriving > 1">
+          <div class="value" v-if="arrival.arriving > 0">
             <span class="number">{{ arrival.arriving }}</span>
             <span class="scale">min</span>
           </div>
@@ -82,7 +82,7 @@ const MOUNTED_TIMEOUT_ANIMATE = 200;
 const INTERVAL = 15;
 const DAMP_ICON_X = 10;
 
-export const TRESHOLD_SCROLL_Y = -150;
+export const TRESHOLD_SCROLL_Y = -100;
 
 const mockedCrowdLevel = 75;
 const mockedArrivalTIme = 3;
@@ -166,7 +166,10 @@ export default {
         'margin-left': `${(this.dragged.x + this.offsetX) / DAMP_ICON_X}px`,
       };
     },
-    showMainCard() { return this.dragged.y + this.scrollY > TRESHOLD_SCROLL_Y; },
+    showMainCard() {
+      //return this.dragged.y + this.scrollY > TRESHOLD_SCROLL_Y;
+      return false;
+    },
     getNextBusStyle() {
       return idx => ({
         transform: `translateY(${this.showMainCard ? idx * 100 : 0}px)`,
@@ -208,9 +211,9 @@ export default {
   position: absolute;
   z-index: 100;
   width: calc(80% + 10px);
-  height: 180px;
+  height: 150px;
   left: calc(10% - 7.5px);
-  bottom: 50px;
+  bottom: 32px;
   box-shadow: 0 20px 40px -15px rgba(0,0,0,.3);
   background: white;
   cursor: grab;
@@ -298,9 +301,9 @@ export default {
   padding: 5px 10px;
   position: absolute;
   width: calc(100% - 30px);
-  max-height: 40%;
+  max-height: 300px;
   left: 15px;
-  top: calc(100% - 12.5px);
+  top: calc(100% - 92.5px);
   z-index: 100;
   cursor: grab;
   .bus__item {
