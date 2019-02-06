@@ -11,6 +11,13 @@
         >
         <img :src="markercolour[color]">
         </gmap-custom-marker>
+        <gmap-custom-marker v-for="(m, idx) in bus_stop_data" :key="idx"
+        :marker="{lat: m.lat, lng: m.lng}" class="mapMarker"
+        :offsetX="-63" :offsetY="10" @click.native="$emit('pick-stop', idx)"
+        >
+        <img :src="stopcolour['selected']" v-if="idx === selected">
+        <img :src="stopcolour[color]" v-else>
+        </gmap-custom-marker>
         </gmap-map>
         </transition>
         </div>
@@ -22,6 +29,9 @@
     import GmapCustomMarker from 'vue2-gmap-custom-marker';
     import blue_marker from "@/static/bus_icon_blue.png";
     import red_marker from "@/static/bus_icon_red.png";
+    import blue_busstop from "@/static/blue_busstop.png";
+    import red_busstop from "@/static/red_busstop.png";
+    import selected_busstop from "@/static/selected_busstop.png";
 
     const colors = {
         $blue: 'rgb(0,122,255)',
@@ -32,7 +42,7 @@
     };
 
     const TIMEOUT_MOUNTED = 100;
-    const BUS_UPDATE_INTERVAL = 100;
+    const BUS_UPDATE_INTERVAL = 1000;
     const NEXT_POS_DISTANCE_TRESHOLD = 0.00005;
     const SPEED_INACCURACY_FACTOR = 0.75; // Factor that times the provided speed by API
     const API_FETCH_INTERVAL = 6000; // 3 seconds
@@ -56,6 +66,8 @@
         },
         props: {
             color: String,
+            bus_stop_data: Array,
+            selected: Number
         },
         data() {
             return {
@@ -71,6 +83,11 @@
                 markercolour: {
                     blue: blue_marker,
                     red: red_marker
+                },
+                stopcolour: {
+                    blue: blue_busstop,
+                    red: red_busstop,
+                    selected: selected_busstop
                 },
                 busrecords: {},
                 mapOptions: {

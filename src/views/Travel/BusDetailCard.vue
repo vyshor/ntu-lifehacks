@@ -22,16 +22,16 @@
             </div>
           </div>
           <div class="info location">
-            <div class="label">Last stop</div>
-            <div class="value">{{ lastStop }}</div>
+            <div class="label">Vehicle No.</div>
+            <div class="value">{{ vehicleNo }}</div>
           </div>
         </div>
-        <div class="infos">
-          <div class="info recommendation">
-            <div class="label">Recommendation</div>
-            <div class="value">{{ recommendation }}</div>
-          </div>
-        </div>
+        <!--<div class="infos">-->
+          <!--<div class="info recommendation">-->
+            <!--<div class="label">Recommendation</div>-->
+            <!--<div class="value">{{ recommendation }}</div>-->
+          <!--</div>-->
+        <!--</div>-->
       </div>
     </div>
   </transition>
@@ -39,30 +39,35 @@
   <div class="list__nextBuses" :style="cardStyle" v-if="active"
     :class="{ fade: showMainCard, dragging }"
     @mousedown="startDrag" @touchstart="startDrag">
-    <div v-for="(bus, idx) in buses" :key="idx" :class="{ recommended: idx === recommended }"
+    <div v-for="(arrival, idx) in arrival_data" :key="idx" :class="{ recommended: idx === recommended }"
       :style="getNextBusStyle(idx)" class="bus__item">
       <div class="bus__icon">
         <div class="level__bar" :class="color"
           :style="getLevelBarStyle(idx)"/>
-        <div class="crowdLevel">{{ bus.level }}%</div>
+        <!--<div class="crowdLevel">{{ bus.level }}</div>-->
+        <div class="crowdLevel">75</div>
       </div>
       <div class="infos" :class="{ hidden: showMainCard }">
         <div class="info time">
           <div class="label">Arriving in</div>
-          <div class="value">
-            <span class="number">{{ bus.time }}</span>
+          <div class="value" v-if="arrival.arriving > 1">
+            <span class="number">{{ arrival.arriving }}</span>
             <span class="scale">min</span>
           </div>
+          <div class="value" v-else-if="arrival.arriving === 0">
+            <span class="number">Arr</span>
+          </div>
+
         </div>
         <div class="info location">
-          <div class="label">Last stop</div>
-          <div class="value">{{ bus.lastStop }}</div>
+          <div class="label">Vehicle No.</div>
+          <div class="value">{{ arrival.vehicle }}</div>
         </div>
       </div>
-      <div class="recommended__container" v-if="idx === recommended">
-        <div class="recommended__text">recommended</div>
-        <img class="starIcon" src="../../assets/SVG/recommended.svg"/>
-      </div>
+      <!--<div class="recommended__container" v-if="idx === recommended">-->
+        <!--<div class="recommended__text">recommended</div>-->
+        <!--<img class="starIcon" src="../../assets/SVG/recommended.svg"/>-->
+      <!--</div>-->
     </div>
   </div>
 </div>
@@ -102,6 +107,7 @@ export default {
     offsetX: Number,
     scrollY: Number,
     active: Boolean,
+    arrival_data: Array,
   },
   components: {
     BusIcon,
@@ -111,9 +117,6 @@ export default {
     return {
       crowdLevel: 0,
       displayLevel: 0,
-      arrivalTime: mockedArrivalTIme,
-      lastStop: '-',
-      recommendation: 'Take the second bus',
       recommended: 1,
       buses: [
         { time: mockedArrivalTIme, level: mockedCrowdLevel, lastStop: '-' },
@@ -131,6 +134,12 @@ export default {
     },
   },
   computed: {
+    arrivalTime() {
+      return this.arrival_data[0].arriving;
+    },
+    vehicleNo() {
+      return this.arrival_data[0].vehicle;
+    },
     circleStyle() {
       const length = (this.crowdLevel / 100) * MAX_DASH_ARRAY;
       return {
@@ -182,6 +191,7 @@ export default {
     },
   },
   mounted() {
+    console.log(this.arrival_data);
     setTimeout(() => {
       if (this.active) this.setCrowdLevel();
     }, MOUNTED_TIMEOUT_ANIMATE);

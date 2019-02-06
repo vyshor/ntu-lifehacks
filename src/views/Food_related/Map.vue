@@ -106,7 +106,7 @@
         mounted() {
             this.loadCanteensFromFirebase();
             // this.geolocate();
-            this.getCurrentPos();
+            // this.getCurrentPos();
         },
         methods: {
             // getPosition: function (marker) {
