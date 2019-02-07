@@ -37,15 +37,14 @@
                                         <v-select :items="Object.values(canteen).filter(store => store !== canteen.canteenName)" label="Food Store" outline item-text="storeName" item-value="storeName" @change="updateSelectedStore($event, canteen.canteenName)"></v-select>
                                     </v-flex>
                                     <v-flex xs12 sm12 d-flex>
-                                        <v-data-table v-for="storee in canteen" :headers="headers" :items="conversionToArray(storee)" class="elevation-1" v-if="selected_store[canteen.canteenName] === storee.storeName" :rows-per-page-items="[4,8]" style="height: 5%; width: 70%;">
+                                        <v-data-table v-for="storee in canteen" :headers="headers" :items="conversionToArray(storee)" class="elevation-1" v-if="selected_store[canteen.canteenName] === storee.storeName" :rows-per-page-items="[4,8]" style="height: 5%; width: 70%;" id="food">
                                             <template slot="items" slot-scope="props">
-                                                <td style="margin: 0; padding: 0;" class="mx-1 px-1">{{ props.item.name }}</td>
-                                                <td style="margin: 0; padding: 0; width: 7%;" class="mx-1 px-1">
+                                                <td class="px-2">{{ props.item.name }}</td>
+                                                <td class="px-2">
                                                     <v-layout>
-                                                        <v-flex xs2>
-                                                            <v-text-field type="number" value="1" min="1" step="1" v-model="menu_quantity[props.item.name]"></v-text-field>
+                                                        <v-flex xs2 offset-xs2>
+                                                            <v-text-field type="number" value="0" min="1" step="1" v-model="menu_quantity[props.item.name]"></v-text-field>
                                                         </v-flex>
-
                                                         <v-flex xs2>
                                                             <v-btn fab dark small color="indigo">
                                                                 <v-icon dark small @click="increOne(props.item.name)">add</v-icon>
@@ -63,7 +62,7 @@
                                                         </v-flex>
                                                     </v-layout>
                                                 </td>
-                                                <td class="text-xs-left" style="margin: 0; padding: 0;">{{props.item.price }}</td>
+                                                <td class="text-xs-center" style="margin: 0; padding: 0;">{{props.item.price }}</td>
                                             </template>
                                         </v-data-table>
                                     </v-flex>
@@ -73,16 +72,16 @@
                     </v-card>
                 </v-stepper-content>
 
-                <v-stepper-content step="2">
-                    <v-card class="mb-5" color="grey lighten-1" height="200px">
+                <v-stepper-content step="2" class="ma-0 pa-0">
+                    <v-card class="mb-3" color="grey lighten-1" height="200px">
                         <v-flex xs12 sm12 d-flex>
                             <v-data-table :headers="headers_cart" :items="cart" class="elevation-1" :rows-per-page-items="[10,20]" style="height: 5%; width: 70%;">
                                 <template slot="items" slot-scope="props">
-                                    <td style="margin: 0; padding: 0;" class="mx-1 px-1">{{ props.item.location }}</td>
-                                    <td class="text-xs-left" style="margin: 0; padding: 0;">{{props.item.store }}</td>
-                                    <td class="text-xs-left" style="margin: 0; padding: 0;">{{props.item.dish }}</td>
-                                    <td class="text-xs-left" style="margin: 0; padding: 0;">{{props.item.price }}</td>
-                                    <td class="text-xs-left" style="margin: 0; padding: 0;">
+                                    <td style="margin: 0; padding: 0;" class="px-2">{{ props.item.location }}</td>
+                                    <td class="text-xs-center" style="margin: 0; padding: 0;">{{props.item.store }}</td>
+                                    <td class="text-xs-center" style="margin: 0; padding: 0;">{{props.item.dish }}</td>
+                                    <td class="text-xs-center" style="margin: 0; padding: 0;">{{props.item.price }}</td>
+                                    <td class="text-xs-center" style="margin: 0; padding: 0;">
                                         <v-text-field type="number" min="1" step="1" v-model="props.item.qty"></v-text-field>
                                     </td>
                                     <td style="margin: 0; padding: 0; width: 7%;" class="mx-0 px-0">
@@ -94,11 +93,15 @@
                             </v-data-table>
                         </v-flex>
                     </v-card>
-
-                    <p>Total Cost: ${{ this.total_cost }}</p>
-
-                    <v-btn color="primary" @click="e1 = 3">Proceed to payment</v-btn>
-                    <v-btn color="success" @click="e1 = 1">Back</v-btn>
+                    <v-layout row wrap class="px-3 pt-3 pb-2">
+                        <v-flex xs4>
+                            <p style="line-height: 36px; padding-top: 6px; padding-bottom: 6px;">Total Cost: ${{ this.total_cost }}</p>
+                        </v-flex>
+                        <v-flex xs8>
+                            <v-btn color="primary" @click="e1 = 3">Payment</v-btn>
+                            <v-btn color="success" @click="e1 = 1">Back</v-btn>
+                        </v-flex>
+                    </v-layout>
                 </v-stepper-content>
 
                 <v-stepper-content step="3">
@@ -192,7 +195,6 @@
                         text: 'Qty', value: 'qty',
                         align: 'left'
                     }
-
                 ],
                 cart: []
             }
@@ -361,7 +363,8 @@
     }
 </script>
 
-<style scoped>
-
-
+<style>
+    #food.v-table__overflow {
+        overflow-x: hidden !important;
+    }
 </style>
