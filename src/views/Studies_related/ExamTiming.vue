@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
   <div>
     <v-app id="inspire">
       <v-form>
@@ -44,14 +43,6 @@
       </v-form>
     </v-app>
   </div>
-=======
-    <div class="examtime">
-        <h5 class="subheading py-4">The Examination Timing Arrangements are not available yet !</h5>
-
-        <h5 class="subheading">You will be able to view this 2 weeks before your examination starts !</h5>
-
-    </div>
->>>>>>> 9ddb483e83308df98cc6a07b13f9314bbca914cd
 </template>
 
 <script>
@@ -91,9 +82,4 @@ export default {
 </script>
 
 <style scoped>
-<<<<<<< HEAD
 </style>
-=======
-
-</style>
->>>>>>> 9ddb483e83308df98cc6a07b13f9314bbca914cd
