@@ -1,18 +1,21 @@
 <template>
-        <div class="googleMap__container">
-                <transition name="fade">
-                        <gmap-map :center="center" :zoom="zoom" class="google__map" v-if="isMounted" :options="mapOptions">
-                                <gmap-polyline :path="path" :options="options"></gmap-polyline>
-                                <gmap-custom-marker v-for="(m, idx) in markers" :key="idx" :marker="m.position" class="mapMarker" :offsetX="-63">
-                                        <img :src="markercolour[color]">
-                                </gmap-custom-marker>
-                                <gmap-custom-marker v-for="(m, idx) in bus_stop_data" :key="idx" :marker="{lat: m.lat, lng: m.lng}" class="mapMarker" :offsetX="-63" :offsetY="10" @click.native="$emit('pick-stop', idx)">
-                                        <img :src="stopcolour['selected']" v-if="idx === selected">
-                                        <img :src="stopcolour[color]" v-else>
-                                </gmap-custom-marker>
-                        </gmap-map>
-                </transition>
-        </div>
+    <div class="googleMap__container">
+        <transition name="fade">
+            <gmap-map :center="center" :zoom="zoom" class="google__map" v-if="isMounted" :options="mapOptions">
+                <gmap-polyline :path="path" :options="options"></gmap-polyline>
+                <gmap-custom-marker v-for="(m, idx) in markers" :key="idx" :marker="m.position" class="mapMarker"
+                                    :offsetX="-63">
+                    <img :src="markercolour[color]">
+                </gmap-custom-marker>
+                <gmap-custom-marker v-for="(m, idx) in bus_stop_data" :key="idx" :marker="{lat: m.lat, lng: m.lng}"
+                                    class="mapMarker" :offsetX="-63" :offsetY="10"
+                                    @click.native="$emit('pick-stop', idx)">
+                    <img :src="stopcolour['selected']" v-if="idx === selected">
+                    <img :src="stopcolour[color]" v-else>
+                </gmap-custom-marker>
+            </gmap-map>
+        </transition>
+    </div>
 </template>
 
 <script>
@@ -113,8 +116,9 @@
                                 let lat = vehicle.lat;
                                 let lng = vehicle.lon;
 
-                                Vue.set(self.markers, label, {position: {
-                                    lat: lat,
+                                Vue.set(self.markers, label, {
+                                    position: {
+                                        lat: lat,
                                         lng: lng
                                     }
                                 });

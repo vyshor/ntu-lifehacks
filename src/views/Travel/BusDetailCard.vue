@@ -16,10 +16,14 @@
         <div class="infos">
           <div class="info time">
             <div class="label">Arriving in</div>
-            <div class="value">
+            <div class="value" v-if="arrivalTime > 1">
               <span class="number">{{ arrivalTime }}</span>
               <span class="scale">min</span>
             </div>
+            <div class="value" v-else-if="arrivalTime === 1">
+              <span class="number">Arr</span>
+            </div>
+
           </div>
           <div class="info location">
             <div class="label">Vehicle No.</div>
@@ -45,7 +49,7 @@
         <div class="level__bar" :class="color"
           :style="getLevelBarStyle(idx)"/>
         <!--<div class="crowdLevel">{{ bus.level }}</div>-->
-        <div class="crowdLevel">75%</div>
+        <div class="crowdLevel">{{ BoonLayPeak[(new Date).getHours()] }}</div>
       </div>
       <div class="infos" :class="{ hidden: showMainCard }">
         <div class="info time">
@@ -55,7 +59,7 @@
             <span class="scale">min</span>
           </div>
           <div class="value" v-else-if="arrival.arriving === 0">
-            <span class="number">Arr</span>
+            <span class="scale">Arr</span>
           </div>
 
         </div>
@@ -123,6 +127,7 @@ export default {
         { time: 5, level: 20, lastStop: '-' },
         { time: 15, level: 45, lastStop: locations.INNOVATION_CENTRE },
       ],
+      BoonLayPeak: [0,0,0,0,0,30,90,70,60,30,70,80,50,20,30,50,70,90,90,40,30,20,10,10]
     };
   },
   watch: {
@@ -179,7 +184,7 @@ export default {
     },
     getLevelBarStyle() {
       return idx => ({
-        height: `${this.showMainCard ? 0 : this.buses[idx].level}%`,
+        height: `${this.showMainCard ? 0 : this.BoonLayPeak[(new Date).getHours()]}%`,
         'transition-delay': `${(idx * 50) + 250}ms`,
       });
     },
