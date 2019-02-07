@@ -2,7 +2,7 @@
   <div>
     <v-app id="inspire">
       <v-form>
-        <v-container>
+        <v-container fluid>
           <v-layout row wrap>
             <v-flex xs12 sm6 md3>
               <v-text-field
@@ -15,29 +15,31 @@
           </v-layout>
 
           <v-layout column>
-            <v-card class="mx-auto" color="#d81b60" dark min-width="350">
-              <v-card-text class="font-weight-normal">Course Code: {{ courseCode }}</v-card-text>
-            </v-card>
+            <v-flex>
+              <v-card class="mx-auto" color="#f83e7a" dark>
+                <v-card-text class="font-weight-normal">Course Code: {{ courseCode }}</v-card-text>
+              </v-card>
 
-            <v-card class="mx-auto" color="#d81b60" dark min-width="350">
-              <v-card-text class="font-weight-normal">Course Name: {{ courseName }}</v-card-text>
-            </v-card>
+              <v-card class="mx-auto" color="#f83e7a" dark>
+                <v-card-text class="font-weight-normal">Course Name: {{ courseName }}</v-card-text>
+              </v-card>
 
-            <v-card class="mx-auto" color="#d81b60" dark min-width="350">
-              <v-card-text class="font-weight-normal">Exam Date: {{ date }}</v-card-text>
-            </v-card>
+              <v-card class="mx-auto" color="#f83e7a" dark>
+                <v-card-text class="font-weight-normal">Exam Date: {{ date }}</v-card-text>
+              </v-card>
 
-            <v-card class="mx-auto" color="#d81b60" dark min-width="350">
-              <v-card-text class="font-weight-normal">Day: {{ day }}</v-card-text>
-            </v-card>
+              <v-card class="mx-auto" color="#f83e7a" dark>
+                <v-card-text class="font-weight-normal">Day: {{ day }}</v-card-text>
+              </v-card>
 
-            <v-card class="mx-auto" color="#d81b60" dark min-width="350">
-              <v-card-text class="font-weight-normal">Start Time: {{ startTime }}</v-card-text>
-            </v-card>
+              <v-card class="mx-auto" color="#f83e7a" dark>
+                <v-card-text class="font-weight-normal">Start Time: {{ startTime }}</v-card-text>
+              </v-card>
 
-            <v-card class="mx-auto" color="#d81b60" dark min-width="350">
-              <v-card-text class="font-weight-normal">Duration: {{duration}} Hour(s)</v-card-text>
-            </v-card>
+              <v-card class="mx-auto" color="#f83e7a" dark>
+                <v-card-text class="font-weight-normal">Duration: {{duration}} Hour(s)</v-card-text>
+              </v-card>
+            </v-flex>
           </v-layout>
         </v-container>
       </v-form>

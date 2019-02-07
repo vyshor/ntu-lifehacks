@@ -55,7 +55,7 @@
             <v-card dark color="primary">
               <v-card-text class="px-0">Time</v-card-text>
             </v-card>
-            <v-card v-for="timeslot in timeslots">
+            <v-card v-for="timeslot in timeslots" :key="timeslot.id">
               <v-card-text class="px-0">{{ timeslot.start }}</v-card-text>
             </v-card>
           </v-flex>
@@ -63,10 +63,10 @@
             <v-card dark color="primary">
               <v-card-text class="px-0">{{ day.name }}</v-card-text>
             </v-card>
-            <v-card v-for="timeslot in timeslots">
+            <v-card v-for="timeslot in timeslots" :key="timeslot.id">
               <v-card-text
                 class="px-0 empty blue darken-4"
-                v-if="checkOccupied((day.id - 1) * 27 + timeslot.id)"
+                v-if="checkOccupied(day.id, timeslot.id)"
               >&nbsp;</v-card-text>
               <v-card-text class="px-0 empty" v-else>&nbsp;</v-card-text>
             </v-card>
@@ -76,6 +76,8 @@
     </v-layout>
   </v-container>
 </template>
+
+// checkOccupied((day.id - 1) * 27 + timeslot.id)
 
 <style scoped>
 .empty {
@@ -94,7 +96,15 @@ export default {
   data() {
     return {
       locationIn: null,
-      occupiedidx: [],
+      occupiedidx: {
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": [],
+        "5": [],
+        "6": [],
+        "7": []
+      },
 
       booked: [],
       operatingHours: null,
@@ -173,7 +183,18 @@ export default {
   },
   methods: {
     getBookings(facility) {
-      console.log(this.facilitydata[this.locationIn][facility]);
+      // Clear data:
+      var testdate = new Date(1548662400000);
+
+      this.occupiedidx = {
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": [],
+        "5": [],
+        "6": [],
+        "7": []
+      };
       axios
         .get(
           "http://172.20.112.181/booking/library/" +
@@ -181,23 +202,32 @@ export default {
         )
         .then(response => {
           this.bookingdata = response.data;
-          console.log(response.data);
+          // console.log(response.data);
           this.operatingHours = this.bookingdata.operatingHours;
-          for (let info in response.data) {
-            const time_idx = response.data["Bookings"];
-            console.log(time_idx);
-            const coord = time_idx[0]["TimeCoordinate"];
-            console.log(coord);
-            const start_idx = (coord.Weekday - 1) * 27 + coord.StartTimeCoordinate;
-            const end_idx = (coord.Weekday - 1) * 27 + coord.EndTimeCoordinate;
-            for (let i = start_idx; i <= end_idx; i++) {
-              this.occupiedidx.push(i);
+          var bookings = response.data["Bookings"];
+          for (var i = 0; i < bookings.length; i++) {
+            // console.log(bookings[i]);
+            if (bookings[i]["CheckInStatus" == 3]) {
+              continue;
+            }
+            console.log(bookings[i]["StartDateTime"]);
+            var start_slot = this.convertTimeToTimeslot(
+              this.unixToTime(bookings[i]["StartDateTime"])
+            );
+            var end_slot = this.convertTimeToTimeslot(
+              this.unixToTime(bookings[i]["EndDateTime"])
+            );
+            for (var j = start_slot - 1; j <= end_slot - 1; j++) {
+              this.occupiedidx[bookings[i]["TimeCoordinate"]["Weekday"]].push(
+                j
+              );
             }
           }
+          console.log(this.occupiedidx);
         });
     },
-    checkOccupied(idx) {
-      return this.occupiedidx.includes(idx);
+    checkOccupied(day, idx) {
+      return this.occupiedidx[day].includes(idx);
     },
     getFacilities(loc) {
       console.log(this.locationIn);
@@ -205,16 +235,21 @@ export default {
       for (var key in this.facilitydata[loc]) this.facilities.push(key);
     },
     unixToTime(uncleaned_unix) {
-      var regExp = /\(([^)]+)\)/;
-      var unix_timestamp = regExp.exec(uncleaned_unix);
-      var date = new Date(unix_timestamp[1] * 1);
-      var hours = "0" + date.getHours();
-      var minutes = "0" + date.getMinutes();
-      var seconds = "0" + date.getSeconds();
-      var formattedTime =
-        hours.substr(-2) + ":" + minutes.substr(-2) + ":" + seconds.substr(-2);
-
-      return date.getDay();
+      var cleanedTime = new Date(parseInt(uncleaned_unix.slice(6, 19)));
+      console.log(cleanedTime);
+      return cleanedTime;
+    },
+    convertTimeToTimeslot(date) {
+      console.log(date);
+      var slot = (date.getHours() - 8) * 2 + 1;
+      if (date.getMinutes() < 15) {
+        return slot;
+      } else if (date.getMinutes() < 45) {
+        return ++slot;
+      } else {
+        slot += 2;
+        return slot;
+      }
     },
     preview() {},
     bookFacility() {

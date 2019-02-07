@@ -15,8 +15,9 @@
           </v-layout>
 
           <v-layout class="resp-container">
-            <h1>Module Information</h1>
-            <iframe class="resp-iframe" :src="courseDescriptionURL" frameborder="0"></iframe>
+            <v-flex>
+              <iframe class="resp-iframe" :src="courseDescriptionURL" frameborder="0"></iframe>
+            </v-flex>
           </v-layout>
         </v-container>
       </v-form>
@@ -29,16 +30,17 @@ export default {
   name: "ModuleInformation",
   data() {
     return {
-      courseCode: "AAA08A",
+      courseCode: "AAA08A"
     };
   },
   computed: {
-      courseDescriptionURL: function() {
-          return "https://wish.wis.ntu.edu.sg/webexe/owa/AUS_SUBJ_CONT.main_display1?acadsem=2018_2&r_subj_code=" +
+    courseDescriptionURL: function() {
+      return (
+        "https://wish.wis.ntu.edu.sg/webexe/owa/AUS_SUBJ_CONT.main_display1?acadsem=2018_2&r_subj_code=" +
         this.courseCode +
         "&acad=2018&semester=2&boption=Search"
-      }
-    
+      );
+    }
   },
   methods: {
     changeURL() {
