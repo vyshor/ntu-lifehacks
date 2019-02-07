@@ -377,7 +377,5 @@
 </script>
 
 <style>
-    #food.v-table__overflow {
-        overflow-x: hidden !important;
-    }
+
 </style>
