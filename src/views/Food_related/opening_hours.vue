@@ -47,6 +47,12 @@
                                             <v-flex xs3>12p</v-flex>
                                             <v-flex xs3>&nbsp;6p</v-flex>
                                         </v-layout>
+                                        <span>Current Crowd Level:
+                                            <v-chip v-if="canteen.popular2[(new Date()).getHours()]/Math.max(...canteen.popular2) > 0.75" color="#D81B60" class="white--text py-0 my-0 v-chip--small">High</v-chip>
+                                            <v-chip v-else-if="canteen.popular2[(new Date()).getHours()]/Math.max(...canteen.popular2) > 0.5" color="#ffaa2c" class="white--text py-0 my-0 v-chip--small">Mid</v-chip>
+                                            <v-chip v-else-if="canteen.popular2[(new Date()).getHours()]/Math.max(...canteen.popular2) > 0.25" color="#008B00" class="white--text py-0 my-0 v-chip--small">Low</v-chip>
+                                            <v-chip v-else color="#3cd1c2" class="white--text py-0 my-0 v-chip--small">None</v-chip>
+                                        </span>
                                         <!--p class="caption text-sm-center">Crowd Level for Different Times of Day</p-->
                                     </div>
 
@@ -105,13 +111,16 @@
                             data.rating = data.info.rating;
                             if (data.info.hasOwnProperty('populartimes')) {
                                 let popular_data = [];
+                                let popular_data2 = [];
                                 let i = 0;
                                 for (let height of data.info.populartimes[(new Date()).getDay()].data) {
                                     // console.log(height);
                                     popular_data.push({value: height, title: self.indexToTime(i)});
+                                    popular_data2.push(height);
                                     i++;
                                 }
                                 data.popular = popular_data;
+                                data.popular2 = popular_data2;
                             }
 
                             self.canteen_info.push(data);
