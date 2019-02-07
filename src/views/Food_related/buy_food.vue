@@ -95,18 +95,27 @@
                         </v-flex>
                     </v-card>
 
-                    <p>Total Cost: $ {{ this.total_cost }}</p>
+                    <p>Total Cost: ${{ this.total_cost }}</p>
 
                     <v-btn color="primary" @click="e1 = 3">Proceed to payment</v-btn>
                     <v-btn color="success" @click="e1 = 1">Back</v-btn>
-                    <v-btn flat>Cancel</v-btn>
                 </v-stepper-content>
 
                 <v-stepper-content step="3">
-                    <v-card class="mb-5" color="grey lighten-1" height="200px"></v-card>
-                    <Login @loggedIn="loggingIn()" @signedUp2="signingUp()" v-if="!loggedin"></Login>
-                    <v-btn v-else color="primary" @click="submitOrder()">Confirm2</v-btn>
-                    <v-btn flat>Cancel</v-btn>
+                    <!--v-card class="mb-5" color="grey lighten-1" height="200px"></v-card-->
+                    <!--Login @loggedIn="loggingIn()" @signedUp2="signingUp()" v-if="!loggedin"></Login-->
+                    <v-card class="mb-5">
+                        <v-layout row>
+                            <v-flex xs4 offset-xs2 class="mx3">
+                                <v-icon size="64px">fas fa-credit-card</v-icon>
+                            </v-flex>
+                            <v-flex xs4 class="mx3">
+                                <v-img height="64px" width="64px" aspect-ratio="1" src="https://lh3.ggpht.com/jN6klarG9Q65oa0nHE-roczIUaIJlB3jlb5jAb1z75R7ycB-sFDkzNrt5-p3mIU_6A=s180-rw"></v-img>
+                            </v-flex>
+                        </v-layout>
+                    </v-card>
+                    <v-btn color="primary" @click="submitOrder()">Confirm</v-btn>
+                    <v-btn color="success" @click="e1 = 1">Cancel</v-btn>
                 </v-stepper-content>
 
             </v-stepper-items>

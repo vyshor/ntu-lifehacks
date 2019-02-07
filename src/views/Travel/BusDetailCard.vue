@@ -45,7 +45,7 @@
         <div class="level__bar" :class="color"
           :style="getLevelBarStyle(idx)"/>
         <!--<div class="crowdLevel">{{ bus.level }}</div>-->
-        <div class="crowdLevel">75</div>
+        <div class="crowdLevel">75%</div>
       </div>
       <div class="infos" :class="{ hidden: showMainCard }">
         <div class="info time">

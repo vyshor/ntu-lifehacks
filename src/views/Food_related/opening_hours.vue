@@ -1,7 +1,7 @@
 <template>
     <div class="pa-0 ma-0">
         <v-container id="dashboard_main" class="ma-0 px-0">
-            <h1 class="subheading grey--text">Opening Hours</h1>
+            <h1 class="subheading grey--text" style="padding-left: 16px">Opening Hours</h1>
             <v-layout row class="mb-3">
                 <v-tooltip top v-if="allowedLocation">
                     <v-btn small flat color="grey" @click="sortBy('distance')" slot="activator">
