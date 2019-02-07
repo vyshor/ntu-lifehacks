@@ -29,7 +29,7 @@ export default {
   name: "ModuleInformation",
   data() {
     return {
-      courseCode: "HY0001",
+      courseCode: "AAA08A",
     };
   },
   computed: {
