@@ -79,6 +79,11 @@ export default new Router({
       name: 'bus',
       component: () => import('./views/Travel/BusMapView.vue')
     },
+    {
+      path: '/recommendations',
+      name: 'recommendations',
+      component: () => import('./views/Food_related/recommendations.vue')
+    },
       {
       path: '/',
       redirect: 'makan'
