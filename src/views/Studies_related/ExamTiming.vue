@@ -1,6 +1,9 @@
 <template>
     <div class="examtime">
-        <h1>Exam Timing</h1>
+        <h5 class="subheading py-4">The Examination Timing Arrangements are not available yet !</h5>
+
+        <h5 class="subheading">You will be able to view this 2 weeks before your examination starts !</h5>
+
     </div>
 </template>
 
