@@ -57,7 +57,7 @@
                                                             </v-btn>
                                                         </v-flex>
                                                         <v-flex xs2>
-                                                            <v-btn fab color="info" dark small>
+                                                            <v-btn fab color="#ffaa2c" dark small>
                                                                 <v-icon small @click="addToCart(props.item.name, canteen.canteenName, storee.storeName, props.item.price)" center>fa-cart-plus</v-icon>
                                                             </v-btn>
                                                         </v-flex>

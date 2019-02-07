@@ -27,6 +27,7 @@
     import BusDetailCard, {TRESHOLD_SCROLL_Y} from '@/views/Travel/BusDetailCard';
 
     import locationMethods from '@/mixins/locationMethods';
+    import Vue from 'vue';
 
     const CHANGE_LINE_TRESHOLD = 100;
     const HORIZONTAL = 'horizontal';
@@ -142,6 +143,7 @@
             nextLine() {
                 this.active = Math.min(this.active + 1, this.busColors.length - 1);
                 this.picked_stop_idx = -1;
+                this.loadCurPos();
                 this.scrollY = 0;
             },
             getBusStopData() {
@@ -149,7 +151,8 @@
                 $.ajax(GITRAW_BLUE, {
                     async: true, success: function (res) {
                         // console.log(res);
-                        self.bus_stop_data[0] = JSON.parse(res);
+                        // self.bus_stop_data[0] = JSON.parse(res);
+                        Vue.set(self.bus_stop_data, 0, JSON.parse(res));
                         self.loadCurPos();
 
                     }
@@ -157,7 +160,8 @@
                 $.ajax(GITRAW_RED, {
                     async: true, success: function (res) {
                         // console.log(res);
-                        self.bus_stop_data[1] = JSON.parse(res);
+                        // self.bus_stop_data[1] = JSON.parse(res);
+                        Vue.set(self.bus_stop_data, 1, JSON.parse(res));
 
                     }
                 });
@@ -182,6 +186,7 @@
                         i++;
                     }
                     self.picked_stop_idx = min_idx;
+                    self.getBusArrivalTiming(self.bus_stop_data[self.active][self.picked_stop_idx].code);
                 });
             },
             getBusArrivalTiming(code) {
