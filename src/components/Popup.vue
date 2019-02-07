@@ -42,7 +42,8 @@
                     v => v.length >= 3 || 'Minimum length is 3 characters'
                 ],
                 loading: false,
-                dialog: false
+                dialog: false,
+                wallet: food.wallet
             }
         },
         methods: {

@@ -13,11 +13,12 @@
             <v-layout column align-center>
                 <v-flex class="mt-5">
                     <v-avatar size="100">
-                        <v-icon class="secondary--text"light style="font-size: 100px;">fa-user-circle</v-icon>
+                        <v-icon class="secondary--text" light style="font-size: 100px;">fa-user-circle</v-icon>
                     </v-avatar>
                     <h2 class="mt-2 primary--text" align="center">Admin</h2>
                 </v-flex>
                 <v-flex class="my-2">
+                    <v-icon light>account_balance_wallet</v-icon> Wallet: ${{wallet.toFixed(2)}}
                 </v-flex>
             </v-layout>
             <v-list v-for="link in links" class="py-0 my-0">
@@ -48,7 +49,8 @@
                 drawer: false,
                 links: [
                     {icon: 'dashboard', text: 'Profile', route: '/'},
-                    {icon: 'fa-cog', text: 'Settings', route: '/projects'}
+                    {icon: 'fa-cog', text: 'Settings', route: '/projects'},
+                    {icon: 'fa-sign-out-alt', text: 'Log Out', route: '/'}
                 ]
             }
         },
@@ -56,7 +58,7 @@
             logout: function () {
                 firebase.auth().signOut().then(() => {
                     this.$router.replace('/');
-                    console.log('loggedout');
+                    //console.log('loggedout');
                 })
             }
         }

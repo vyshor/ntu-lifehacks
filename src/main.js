@@ -8,6 +8,8 @@ import Bars from 'vuebars'
 window.$ = window.jQuery = require('jquery');
 Vue.config.productionTip = false;
 
+Vue.wallet = Vue.prototype.wallet = 100.00;
+
 Vue.use(Bars);
 Vue.use(VueGoogleMaps, {
   load: {

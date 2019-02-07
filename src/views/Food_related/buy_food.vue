@@ -18,7 +18,7 @@
                 <v-stepper-step step="3">Make payment</v-stepper-step>
             </v-stepper-header>
             <v-flex xs12 style="height:0px;">
-                <v-btn absolute icon large right color="primary" dark style="position: fixed; bottom: 10%; z-index: 999;" @click="e1 = 2">
+                <v-btn absolute icon large right color="primary" dark style="position: fixed; bottom: 10%; z-index: 5;" @click="e1 = 2">
                     <v-badge color="orange darken-2" left>
                         <span slot="badge">{{cart.length}}</span>
                         <v-icon>fa-shopping-cart</v-icon>
@@ -104,21 +104,28 @@
                     </v-layout>
                 </v-stepper-content>
 
-                <v-stepper-content step="3">
+                <v-stepper-content step="3" class="ma-0 pa-0">
                     <!--v-card class="mb-5" color="grey lighten-1" height="200px"></v-card-->
                     <!--Login @loggedIn="loggingIn()" @signedUp2="signingUp()" v-if="!loggedin"></Login-->
-                    <v-card class="mb-5">
-                        <v-layout row>
-                            <v-flex xs4 offset-xs2 class="mx3">
-                                <v-icon size="64px">fas fa-credit-card</v-icon>
-                            </v-flex>
-                            <v-flex xs4 class="mx3">
-                                <v-img height="64px" width="64px" aspect-ratio="1" src="https://lh3.ggpht.com/jN6klarG9Q65oa0nHE-roczIUaIJlB3jlb5jAb1z75R7ycB-sFDkzNrt5-p3mIU_6A=s180-rw"></v-img>
-                            </v-flex>
-                        </v-layout>
+                    <v-card class="mb-5 px-3">
+                        <h1 class="subheading grey--text py-2">Select Payment Option:</h1>
+                        <v-radio-group v-model="payment_type" :mandatory="false" class="py-2">
+                            <v-radio label="Wallet" value="wallet_pay">Wallet</v-radio>
+                        </v-radio-group>
                     </v-card>
-                    <v-btn color="primary" @click="submitOrder()">Confirm</v-btn>
-                    <v-btn color="success" @click="e1 = 1">Cancel</v-btn>
+                    <v-layout row wrap class="px-3 pt-3 pb-2">
+                        <v-flex xs8 offset-xs4>
+                            <v-btn color="primary" @click="submitOrder(); e1 = 4;">Confirm</v-btn>
+                            <v-btn color="success" @click="e1 = 1">Cancel</v-btn>
+                        </v-flex>
+                    </v-layout>
+                </v-stepper-content>
+
+                <v-stepper-content step="4" class="ma-0 pa-0">
+                    <v-card class="pa-3">
+                        <p class="subheading grey--text">Your order have been processed.</p>
+                        <p class="grey--text">You have ${{wallet.toFixed(2)}} left in your wallet.</p>
+                    </v-card>
                 </v-stepper-content>
 
             </v-stepper-items>
@@ -136,12 +143,14 @@
 
 
     export default {
+        name: "food",
         components: {
-            Login
+            Login,
         },
         mixins: [processFireBase, locationMethods],
         data() {
             return {
+                payment_type: 'wallet_pay',
                 // for firebase auth
                 loggedin: false,
                 user_id: '',
@@ -280,7 +289,7 @@
             },
             addToCart: function (ref, canteenName, storeName, price) {
                 const val = this.menu_quantity[ref];
-                console.log(canteenName, storeName, ref, price, val);
+                //console.log(canteenName, storeName, ref, price, val);
                 this.cart.push({
                     location: canteenName,
                     store: storeName,
@@ -299,14 +308,14 @@
             },
             checkLoginStatus: function () {
                 let user = firebase.auth().currentUser;
-                console.log(user);
+                //console.log(user);
                 if (user) {
                     this.loggedin = true;
                     this.user_id = user.uid;
                 } else {
                     this.loggedin = false;
                 }
-                console.log(this.loggedin);
+                //console.log(this.loggedin);
             },
             loggingIn: function() {
                 this.loggedin = true;
@@ -319,6 +328,9 @@
                 this.snackbar2 = true;
             },
             submitOrder: function() {
+                this.wallet -= this.total_cost;
+                //console.log(this.wallet);
+                /*
                 const docRef = db.collection('users').doc('' + this.user_id).collection('orders').doc();
                 const order_id = docRef.id;
 
@@ -345,6 +357,7 @@
                 docRef.set(
                     all_orders
                 ).then(); // promise if success
+                */
             }
         },
         updated() {
@@ -354,7 +367,7 @@
                 let total = 0.;
                 for (let order of this.cart) {
                     total += parseFloat((order.price + "").match(/[+-]?\d+(?:\.\d+)?/g)[0]) * parseInt(order.qty);
-                    console.log(order.price, order.qty);
+                    //console.log(order.price, order.qty);
                 }
                 return total;
             }
