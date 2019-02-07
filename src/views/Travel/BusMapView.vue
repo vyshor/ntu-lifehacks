@@ -195,7 +195,7 @@
                             for (let forecast of res.forecast) {
                                 self.arrival_data.push({
                                     arriving: Math.trunc(forecast.forecast_seconds / 60),
-                                    vehicle: forecast.vehicle.split(/\s+/).slice(1, 3).join('')
+                                    vehicle: forecast.vehicle.split(/\s+/).slice(1, 4).join('')
                                 })
                             }
                             console.log(self.arrival_data);

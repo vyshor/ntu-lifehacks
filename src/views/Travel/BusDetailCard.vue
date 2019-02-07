@@ -16,10 +16,14 @@
         <div class="infos">
           <div class="info time">
             <div class="label">Arriving in</div>
-            <div class="value">
+            <div class="value" v-if="arrivalTime > 1">
               <span class="number">{{ arrivalTime }}</span>
               <span class="scale">min</span>
             </div>
+            <div class="value" v-else-if="arrivalTime === 1">
+              <span class="number">Arr</span>
+            </div>
+
           </div>
           <div class="info location">
             <div class="label">Vehicle No.</div>
@@ -55,7 +59,7 @@
             <span class="scale">min</span>
           </div>
           <div class="value" v-else-if="arrival.arriving === 0">
-            <span class="number">Arr</span>
+            <span class="scale">Arr</span>
           </div>
 
         </div>
