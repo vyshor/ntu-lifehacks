@@ -4,15 +4,15 @@
             <h1 class="subheading grey--text" style="padding-left: 16px">Opening Hours</h1>
             <v-layout row class="mb-3">
                 <v-tooltip top v-if="allowedLocation">
-                    <v-btn small flat color="grey" @click="sortBy('distance')" slot="activator">
-                        <v-icon left small>directions_walk</v-icon>
+                    <v-btn small flat class="mr-0" color="grey" @click="sortBy('distance')" slot="activator">
+                        <v-icon left small style="margin-right: 4px !important;">directions_walk</v-icon>
                         <span class="caption text-lowercase">By distance</span>
                     </v-btn>
                     <span>Sort outlets by nearest distance</span>
                 </v-tooltip>
                 <v-tooltip top>
-                    <v-btn small flat color="grey" @click="sortBy('rating')" slot="activator">
-                        <v-icon left small>rate_review</v-icon>
+                    <v-btn small flat class="mr-0" color="grey" @click="sortBy('rating')" slot="activator">
+                        <v-icon left small style="margin-right: 4px !important;">rate_review</v-icon>
                         <span class="caption text-lowercase">By rating</span>
                     </v-btn>
                     <span>Sort outlets by highest rating</span>
@@ -27,20 +27,27 @@
                         <v-card>
                             <v-card-text class="px-4 grey--text">
                                 <!--<div class="font-weight-bold">due by {{ project.due }}</div>-->
-                                <div><pre>{{ canteen.hours }}
-                                </pre>
+                                <div>
+                                    <pre>{{ canteen.hours }}
+                                    </pre>
                                     Address: <span>{{ canteen.info.address }}</span>
                                     <br>
                                     <span v-if="canteen.info.rating">Rating: {{ canteen.info.rating }}
                                     <br></span>
                                     <span v-if="canteen.info.international_phone_number">Number: {{ canteen.info.international_phone_number }}</span>
                                     <div v-if="canteen.hasOwnProperty('popular')">
-                                        <bars
+                                        <bars transform="translate(0, 15)"
                                                 :data="canteen.popular"
                                                 :barWidth="10"
                                                 :gradient="['#6fa8dc', '#42b983']">
                                         </bars>
-                                        <p class="caption text-sm-center">Crowd Level for Different Times of Day</p>
+                                        <v-layout class="caption pt-0 mt-0" style="width: 100%;">
+                                            <v-flex xs3>12a</v-flex>
+                                            <v-flex xs3>&nbsp;6a</v-flex>
+                                            <v-flex xs3>12p</v-flex>
+                                            <v-flex xs3>&nbsp;6p</v-flex>
+                                        </v-layout>
+                                        <!--p class="caption text-sm-center">Crowd Level for Different Times of Day</p-->
                                     </div>
 
                                 </div>
