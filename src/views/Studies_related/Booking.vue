@@ -42,10 +42,18 @@
           ></v-select>
         </v-flex>
       </v-layout>
-      <v-layout row wrap>
-        <v-spacer></v-spacer>
-        <v-btn color="success" v-on:click="preview">Preview</v-btn>
-        <v-btn color="warning" v-on:click="bookFacility">Book</v-btn>
+      <v-layout row justify-center>
+        <v-btn color="primary" dark @click="dialog = true">Book</v-btn>
+        <v-dialog v-model="dialog" max-width="290">
+          <v-card>
+            <v-card-title class="headline">Confirm your booking?</v-card-title>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="green darken-1" flat="flat" @click="dialog = false">Nah</v-btn>
+              <v-btn color="green darken-1" flat="flat" @click="dialog = false" v-on:click="bookFacility">Yeah</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </v-layout>
     </v-form>
     <v-layout row wrap class="px-0 mx-0">
@@ -77,7 +85,6 @@
   </v-container>
 </template>
 
-// checkOccupied((day.id - 1) * 27 + timeslot.id)
 
 <style scoped>
 .empty {
@@ -95,6 +102,7 @@ import axios from "axios";
 export default {
   data() {
     return {
+      dialog: false,
       locationIn: null,
       occupiedidx: {
         "1": [],
@@ -141,6 +149,7 @@ export default {
 
       facilitydata: null,
       bookingdata: null,
+      facilityID: null,
 
       timeslots: [],
       locations: [],
@@ -150,7 +159,10 @@ export default {
       bookDay: null,
       startTime: null,
       endTime: null,
-      facility: null
+      facility: null,
+
+      booked_starttime: null,
+      booked_endtime: null
     };
   },
   mounted() {
@@ -184,8 +196,6 @@ export default {
   methods: {
     getBookings(facility) {
       // Clear data:
-      var testdate = new Date(1548662400000);
-
       this.occupiedidx = {
         "1": [],
         "2": [],
@@ -195,11 +205,9 @@ export default {
         "6": [],
         "7": []
       };
+      this.facilityID = this.facilitydata[this.locationIn][facility];
       axios
-        .get(
-          "http://172.20.112.181/booking/library/" +
-            this.facilitydata[this.locationIn][facility]
-        )
+        .get("http://172.20.112.181/booking/library/" + this.facilityID)
         .then(response => {
           this.bookingdata = response.data;
           // console.log(response.data);
@@ -223,7 +231,7 @@ export default {
               );
             }
           }
-          console.log(this.occupiedidx);
+          // console.log(this.occupiedidx);
         });
     },
     checkOccupied(day, idx) {
@@ -251,11 +259,43 @@ export default {
         return slot;
       }
     },
-    preview() {},
     bookFacility() {
-      alert(
-        "You have successfully booked the facility. You will be notifed by an email soon to confirm the booking."
-      );
+      // console.log(this.startTime);
+      // console.log(this.convertTimeslotToTime(this.startTime));
+      // console.log(this.endTime);
+      // console.log(this.convertTimeslotToTime(this.endTime + 1));
+      // console.log(this.bookDay);
+      console.log(this.facilitydata);
+
+      this.booked_starttime = this.convertTimeslotToTime(this.startTime);
+      this.booked_endtime = this.convertTimeslotToTime(this.endTime + 1);
+
+      axios
+        .post(
+          "http://172.20.112.181/booking/library/" + this.facilityID + "/book",
+          {
+            starttime: this.booked_starttime,
+            endtime: this.booked_endtime,
+            date: "08/02/2019"
+          }
+        )
+        .then(response => {
+          console.log(response.data);
+        });
+    },
+    convertTimeslotToTime(slot) {
+      var start = null;
+      if ((slot & 1) == 0) {
+        start = 8 + slot / 2;
+        console.log(start);
+        start =
+          start < 10 ? "0" + start + "00:00" : start.toString() + ":00:00";
+      } else {
+        start = 8 + (slot - 1) / 2;
+        start =
+          start < 10 ? "0" + start + "30:00" : start.toString() + ":30:00";
+      }
+      return start;
     },
     content(day, timeslot) {
       const lesson = this.lessons.find(function(lesson) {
