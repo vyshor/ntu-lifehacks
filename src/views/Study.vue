@@ -31,17 +31,19 @@
 </template>
 
 <script>
+    import axios from 'axios';
+    const PIC_UPDATE_INTERVAL = 10000;
     export default {
         name: "Study",
         data () {
             return {
                 items: [
-                    {src: 'https://webcam.ntu.edu.sg/upload/intranet/WalkwaybetweenNorthAndSouthSpines.jpg'},
-                    {src: 'https://webcam.ntu.edu.sg/upload/intranet/fastfood.jpg'},
-                    {src: 'https://webcam.ntu.edu.sg/upload/intranet/foodcourt.jpg'},
-                    {src: 'https://webcam.ntu.edu.sg/upload/intranet/lwn-inside.jpg'},
-                    {src: 'https://webcam.ntu.edu.sg/upload/intranet/quad.jpg'},
-                    {src: 'https://webcam.ntu.edu.sg/upload/intranet/onestop_sac.jpg'}
+                    {src: 'https://webcam.ntu.edu.sg/upload/intranet/WalkwaybetweenNorthAndSouthSpines.jpg', count: 0},
+                    {src: 'https://webcam.ntu.edu.sg/upload/intranet/fastfood.jpg', count: 0 },
+                    {src: 'https://webcam.ntu.edu.sg/upload/intranet/foodcourt.jpg', count: 0},
+                    {src: 'https://webcam.ntu.edu.sg/upload/intranet/lwn-inside.jpg', count: 0},
+                    {src: 'https://webcam.ntu.edu.sg/upload/intranet/quad.jpg', count: 0},
+                    {src: 'https://webcam.ntu.edu.sg/upload/intranet/onestop_sac.jpg', count: 0}
                 ],
                 nav_icons: [
                     {title: 'Booking', icon: 'fa-calendar-check', route: '/booking'},
@@ -50,8 +52,34 @@
                     {title: 'Module Information', icon: 'fa-question-circle', route:'/modinfo'},
                     {title: 'Exam Timing', icon: 'fa-clock', route:'/examtime'},
                     {title: 'Exam Seating', icon: 'fa-compass', route:'/examseat'}
+                ],
+                places: [
+                    "Walkway", "Fastfood", "Foodcourt", "LWN", "Quad", "SAC"
                 ]
             }
+        },
+        methods: {
+            refreshPersonCount() {
+                let i = 0;
+                for (let place of this.places) {
+                    axios
+                        .get("http://172.20.112.181/detection/"  + place)
+                        .then(response => {
+                            console.log(response.data);
+                            
+
+                            // Vue.set(self.canteen_info, doc.id, data);
+                        });
+                    i++;
+                }
+            }
+        },
+        mounted() {
+            let self = this;
+            let interval = setInterval(() => {
+                self.refreshPersonCount();
+                // self.setBusPos(label, position);
+            }, PIC_UPDATE_INTERVAL);
         }
     }
 </script>
