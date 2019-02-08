@@ -49,6 +49,7 @@
 
 <script>
 import axios from "axios";
+const IP_ADDRESS = '172.22.152.115';
 
 export default {
   name: "ExamTiming",
@@ -65,7 +66,7 @@ export default {
   methods: {
     getExamDetails() {
       var examDetailURL =
-        "http://172.20.112.181/scheduling/" + this.courseCode + "/exam";
+        "http://" + IP_ADDRESS + "/scheduling/" + this.courseCode + "/exam";
       axios.get(examDetailURL).then(response => {
         console.log(response["data"]);
         console.log(response["data"]["name"]);

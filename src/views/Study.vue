@@ -23,6 +23,7 @@
             <h2 class="mb-2 px-0 mx-2 secondary--text">Live Campus Webcam</h2>
                 <v-carousel class="mb-1 px-0 mx-2" hide-controls hide-delimiters height="auto">
                     <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src" contain class="pa-0"></v-carousel-item>
+                    <!--<span>{{ count[i] }}</span>-->
                 </v-carousel>
 
             <h4 class="my-2">Less than 10 people are detected. <br>Place is empty. You will be able to find a seat.</h4>
@@ -32,18 +33,19 @@
 
 <script>
     import axios from 'axios';
-    const PIC_UPDATE_INTERVAL = 10000;
+    const PIC_UPDATE_INTERVAL = 300000; // 5minute
+    const IP_ADDRESS = '172.22.152.115';
     export default {
         name: "Study",
         data () {
             return {
                 items: [
-                    {src: 'https://webcam.ntu.edu.sg/upload/intranet/WalkwaybetweenNorthAndSouthSpines.jpg', count: 0},
-                    {src: 'https://webcam.ntu.edu.sg/upload/intranet/fastfood.jpg', count: 0 },
-                    {src: 'https://webcam.ntu.edu.sg/upload/intranet/foodcourt.jpg', count: 0},
-                    {src: 'https://webcam.ntu.edu.sg/upload/intranet/lwn-inside.jpg', count: 0},
-                    {src: 'https://webcam.ntu.edu.sg/upload/intranet/quad.jpg', count: 0},
-                    {src: 'https://webcam.ntu.edu.sg/upload/intranet/onestop_sac.jpg', count: 0}
+                    {src: 'https://webcam.ntu.edu.sg/upload/intranet/WalkwaybetweenNorthAndSouthSpines.jpg'},
+                    {src: 'https://webcam.ntu.edu.sg/upload/intranet/fastfood.jpg'},
+                    {src: 'https://webcam.ntu.edu.sg/upload/intranet/foodcourt.jpg'},
+                    {src: 'https://webcam.ntu.edu.sg/upload/intranet/lwn-inside.jpg'},
+                    {src: 'https://webcam.ntu.edu.sg/upload/intranet/quad.jpg'},
+                    {src: 'https://webcam.ntu.edu.sg/upload/intranet/onestop_sac.jpg'}
                 ],
                 nav_icons: [
                     {title: 'Booking', icon: 'fa-calendar-check', route: '/booking'},
@@ -55,7 +57,8 @@
                 ],
                 places: [
                     "Walkway", "Fastfood", "Foodcourt", "LWN", "Quad", "SAC"
-                ]
+                ],
+                count: {0:0,1:0,2:0,3:0,4:0,5:0}
             }
         },
         methods: {
@@ -63,23 +66,25 @@
                 let i = 0;
                 for (let place of this.places) {
                     axios
-                        .get("http://172.20.112.181/detection/"  + place)
+                        .get("http://" + IP_ADDRESS + "/detection/"  + place)
                         .then(response => {
                             console.log(response.data);
-                            
 
-                            // Vue.set(self.canteen_info, doc.id, data);
+
+                            // Vue.delete(self.count, i);
+                            // Vue.set(self.count, i, data);
+
                         });
                     i++;
                 }
             }
         },
         mounted() {
-            let self = this;
-            let interval = setInterval(() => {
-                self.refreshPersonCount();
-                // self.setBusPos(label, position);
-            }, PIC_UPDATE_INTERVAL);
+            // let self = this;
+            // let interval = setInterval(() => {
+            //     self.refreshPersonCount();
+            //     // self.setBusPos(label, position);
+            // }, PIC_UPDATE_INTERVAL);
         }
     }
 </script>

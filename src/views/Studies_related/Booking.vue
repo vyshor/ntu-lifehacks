@@ -1,7 +1,7 @@
 <template>
   <v-container grid-list-md text-xs-center>
     <v-snackbar v-model="snackbar" :timeout="4000" top color="success">
-      <span>{{ snackbar_message}}</span>
+      <span>{{ snackbar_message }}</span>
       <v-btn flat color="white" @click="snackbar = false">Close</v-btn>
     </v-snackbar>
     <v-form id="bookingForm">
@@ -102,6 +102,7 @@
 
 <script>
 import axios from "axios";
+const IP_ADDRESS = '172.22.152.115';
 
 export default {
   data() {
@@ -194,7 +195,7 @@ export default {
 
     //facilities data
     axios
-      .get("http://172.20.112.181/booking/library/facilities")
+      .get("http://" + IP_ADDRESS + "/booking/library/facilities")
       .then(response => {
         this.facilitydata = response.data;
         for (var key in response.data) this.locations.push(key);
@@ -214,7 +215,7 @@ export default {
       };
       this.facilityID = this.facilitydata[this.locationIn][facility];
       axios
-        .get("http://172.20.112.181/booking/library/" + this.facilityID)
+        .get("http://" + IP_ADDRESS + "/booking/library/" + this.facilityID)
         .then(response => {
           this.bookingdata = response.data;
           // console.log(response.data);
@@ -279,7 +280,7 @@ export default {
 
       axios
         .post(
-          "http://172.20.112.181/booking/library/" + this.facilityID + "/book",
+          "http://" + IP_ADDRESS +"/booking/library/" + this.facilityID + "/book",
           {
             starttime: this.booked_starttime,
             endtime: this.booked_endtime,
