@@ -35,7 +35,7 @@
 <script>
     import axios from 'axios';
     import Vue from 'vue';
-    const PIC_UPDATE_INTERVAL = 20000; // 5minute
+    const PIC_UPDATE_INTERVAL = 10000; // 5minute
     const IP_ADDRESS = '172.22.152.115';
     export default {
         name: "Study",
