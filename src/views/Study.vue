@@ -22,18 +22,20 @@
         <v-layout row wrap style="background-color: white" class="mt-2 pa-3">
             <h2 class="mb-2 px-0 mx-2 secondary--text">Live Campus Webcam</h2>
                 <v-carousel class="mb-1 px-0 mx-2" hide-controls hide-delimiters height="auto">
-                    <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src" contain class="pa-0"></v-carousel-item>
-                    <!--<span>{{ count[i] }}</span>-->
+                    <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src" contain class="pa-0">
+                        <div class="green--text">{{ count[i] }} person identified</div>
+                    </v-carousel-item>
                 </v-carousel>
 
-            <h4 class="my-2">Less than 10 people are detected. <br>Place is empty. You will be able to find a seat.</h4>
+            <!--<h4 class="my-2">Less than 10 people are detected. <br>Place is empty. You will be able to find a seat.</h4>-->
         </v-layout>
     </div>
 </template>
 
 <script>
     import axios from 'axios';
-    const PIC_UPDATE_INTERVAL = 300000; // 5minute
+    import Vue from 'vue';
+    const PIC_UPDATE_INTERVAL = 20000; // 5minute
     const IP_ADDRESS = '172.22.152.115';
     export default {
         name: "Study",
@@ -49,42 +51,56 @@
                 ],
                 nav_icons: [
                     {title: 'Booking', icon: 'fa-calendar-check', route: '/booking'},
-                    {title: 'STARS Planner', icon: 'fa-calendar-times', route:'/stars'},
-                    {title: 'Timetable', icon: 'fa-calendar-alt', route:'/timetable'},
-                    {title: 'Module Information', icon: 'fa-question-circle', route:'/modinfo'},
-                    {title: 'Exam Timing', icon: 'fa-clock', route:'/examtime'},
-                    {title: 'Exam Seating', icon: 'fa-compass', route:'/examseat'}
+                    {title: 'STARS Planner', icon: 'fa-calendar-times', route: '/stars'},
+                    {title: 'Timetable', icon: 'fa-calendar-alt', route: '/timetable'},
+                    {title: 'Module Information', icon: 'fa-question-circle', route: '/modinfo'},
+                    {title: 'Exam Timing', icon: 'fa-clock', route: '/examtime'},
+                    {title: 'Exam Seating', icon: 'fa-compass', route: '/examseat'}
                 ],
                 places: [
                     "Walkway", "Fastfood", "Foodcourt", "LWN", "Quad", "SAC"
                 ],
-                count: {0:0,1:0,2:0,3:0,4:0,5:0}
+                places2: {
+                "Walkway": 0, "Fastfood":1, "Foodcourt":2, "LWN":3, "Quad":4, "SAC":5
+            },
+                count: {0:0,1:0,2:0,3:0,4:0,5:0, 6:0}
             }
         },
         methods: {
             refreshPersonCount() {
-                let i = 0;
+                let self = this;
+                // let i = 0;
                 for (let place of this.places) {
+                    // console.log(place);
                     axios
                         .get("http://" + IP_ADDRESS + "/detection/"  + place)
                         .then(response => {
                             console.log(response.data);
-
-
-                            // Vue.delete(self.count, i);
-                            // Vue.set(self.count, i, data);
+                            let num = 0;
+                            let data_array = response.data;
+                            for (let item of data_array) {
+                                console.log(item);
+                                if (item[0] === 'person') {
+                                    num++;
+                                }
+                            }
+                            // console.log(num, i);
+                            // self.count[i] = num;
+                            Vue.delete(self.count, self.places2[place]);
+                            Vue.set(self.count, self.places2[place], num);
+                            // console.log(self.count);
 
                         });
-                    i++;
+                    // i++;
                 }
             }
         },
         mounted() {
-            // let self = this;
-            // let interval = setInterval(() => {
-            //     self.refreshPersonCount();
-            //     // self.setBusPos(label, position);
-            // }, PIC_UPDATE_INTERVAL);
+            let self = this;
+            let interval = setInterval(() => {
+                self.refreshPersonCount();
+                // self.setBusPos(label, position);
+            }, PIC_UPDATE_INTERVAL);
         }
     }
 </script>
