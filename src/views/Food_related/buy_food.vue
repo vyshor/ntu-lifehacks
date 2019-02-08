@@ -62,7 +62,7 @@
                                                         </v-flex>
                                                     </v-layout>
                                                 </td>
-                                                <td class="text-xs-center" style="margin: 0; padding: 0;">{{props.item.price }}</td>
+                                                <td class="text-xs-center" style="margin: 0; padding: 0;">{{props.item.price.toFixed(2)}}</td>
                                             </template>
                                         </v-data-table>
                                     </v-flex>
@@ -80,7 +80,7 @@
                                     <td style="margin: 0; padding: 0;" class="px-2">{{ props.item.location }}</td>
                                     <td class="text-xs-center" style="margin: 0; padding: 0;">{{props.item.store }}</td>
                                     <td class="text-xs-center" style="margin: 0; padding: 0;">{{props.item.dish }}</td>
-                                    <td class="text-xs-center" style="margin: 0; padding: 0;">{{props.item.price }}</td>
+                                    <td class="text-xs-center" style="margin: 0; padding: 0;">{{props.item.price.toFixed(2)}}</td>
                                     <td class="text-xs-center" style="margin: 0; padding: 0;">
                                         <v-text-field type="number" min="1" step="1" v-model="props.item.qty"></v-text-field>
                                     </td>
@@ -95,7 +95,7 @@
                     </v-card>
                     <v-layout row wrap class="px-3 pt-3 pb-2">
                         <v-flex xs4>
-                            <p style="line-height: 36px; padding-top: 6px; padding-bottom: 6px;">Total Cost: ${{ this.total_cost }}</p>
+                            <p style="line-height: 36px; padding-top: 6px; padding-bottom: 6px;">Total Cost: ${{ this.total_cost.toFixed(2) }}</p>
                         </v-flex>
                         <v-flex xs8>
                             <v-btn color="primary" @click="e1 = 3">Payment</v-btn>

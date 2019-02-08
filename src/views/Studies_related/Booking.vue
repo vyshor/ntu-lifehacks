@@ -1,8 +1,12 @@
 <template>
   <v-container grid-list-md text-xs-center>
+    <v-snackbar v-model="snackbar" :timeout="4000" top color="success">
+      <span>{{ snackbar_message}}</span>
+      <v-btn flat color="white" @click="snackbar = false">Close</v-btn>
+    </v-snackbar>
     <v-form id="bookingForm">
       <v-layout row wrap>
-        <v-flex xs6>
+        <v-flex xs12>
           <v-select
             :items="locations"
             label="Location"
@@ -10,7 +14,7 @@
             v-on:change="getFacilities"
           ></v-select>
         </v-flex>
-        <v-flex xs6>
+        <v-flex xs12>
           <v-select
             :items="facilities"
             label="Facility"
@@ -162,7 +166,10 @@ export default {
       facility: null,
 
       booked_starttime: null,
-      booked_endtime: null
+      booked_endtime: null,
+
+      snackbar: false,
+      snackbar_message: ''
     };
   },
   mounted() {
@@ -281,6 +288,12 @@ export default {
         )
         .then(response => {
           console.log(response.data);
+          this.snackbar = true;
+          if (response.data.success === 'False') {
+            this.snackbar_message = "Booking failed. Demo state.";
+          } else {
+            this.snackbar_message = "You have booked successfully.";
+          }
         });
     },
     convertTimeslotToTime(slot) {
